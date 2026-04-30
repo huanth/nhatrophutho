@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Card, Chip, CardContent } from "@heroui/react";
+import { Card, Chip, CardContent, CardFooter } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import { formatPrice, formatArea, timeAgo } from "@/lib/utils";
 import { ROOM_TYPE_LABELS, type Room } from "@/types/room";
@@ -90,9 +90,9 @@ export default function RoomCard({ room }: RoomCardProps) {
               </span>
             ))}
           </div>
-        </Card.Content>
+        </CardContent>
 
-        <Card.Footer className="px-4 py-2.5 border-t border-slate-100 dark:border-slate-700/50 flex items-center justify-between">
+        <CardFooter className="px-4 py-2.5 border-t border-slate-100 dark:border-slate-700/50 flex items-center justify-between">
           <span className="text-[11px] text-slate-400">
             {timeAgo(room.createdAt)}
           </span>
@@ -100,7 +100,7 @@ export default function RoomCard({ room }: RoomCardProps) {
             <Icon icon="mdi:eye" />
             <span>{room.viewCount || 0}</span>
           </div>
-        </Card.Footer>
+        </CardFooter>
       </Card>
     </Link>
   );
