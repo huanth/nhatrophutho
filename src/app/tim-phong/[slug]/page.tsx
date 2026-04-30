@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { Button, Chip, Avatar } from "@heroui/react";
+import { Button, Chip, Avatar, Skeleton } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import Navbar from "@/components/ui/Navbar";
 import Footer from "@/components/ui/Footer";
