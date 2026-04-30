@@ -67,7 +67,7 @@ export default function MyRoomsPage() {
             ))}
           </div>
         </div>
-      ) : (rooms.length === 0 ? (
+      ) : rooms.length === 0 ? (
         <div className="text-center py-16 bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700">
           <Icon icon="mdi:file-document-outline" className="text-5xl text-slate-300 mx-auto mb-3" />
           <h3 className="font-semibold text-lg mb-1">Chưa có bài đăng</h3>
