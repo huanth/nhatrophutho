@@ -9,7 +9,6 @@
       "name": "Thành phố Việt Trì",
       "wards": [
         { "code": "07765", "name": "Phường Dữu Lâu" },
-        { "code": "07768", "name": "Phường Vân Cơ" },
         { "code": "07771", "name": "Phường Nông Trang" },
         { "code": "07774", "name": "Phường Tân Dân" },
         { "code": "07777", "name": "Phường Gia Cẩm" },
@@ -17,7 +16,6 @@
         { "code": "07783", "name": "Phường Thọ Sơn" },
         { "code": "07786", "name": "Phường Thanh Miếu" },
         { "code": "07789", "name": "Phường Bạch Hạc" },
-        { "code": "07792", "name": "Phường Bến Gót" },
         { "code": "07795", "name": "Phường Vân Phú" },
         { "code": "07798", "name": "Phường Phượng Lâu" },
         { "code": "07801", "name": "Phường Minh Phương" },
@@ -109,7 +107,7 @@
         { "code": "07933", "name": "Thị trấn Sông Thao" },
         { "code": "07936", "name": "Xã Tùng Khê" },
         { "code": "07939", "name": "Xã Phượng Vĩ" },
-        { "code": "07942", "name": "Xã Văn Khúc" },
+        { "code": "07942", "name": "Xã Nhật Tiến" },
         { "code": "07945", "name": "Xã Yên Tập" }
       ]
     },
