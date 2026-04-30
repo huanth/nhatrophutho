@@ -37,6 +37,19 @@ export default function ProfilePage() {
     role: "" as any,
   });
 
+  // Auto-sync avatar from Google if missing or different
+  useEffect(() => {
+    async function syncAvatar() {
+      if (user?.photoURL && profile && profile.avatarUrl !== user.photoURL) {
+        await updateUserProfile(user.uid, { avatarUrl: user.photoURL });
+        await refreshProfile();
+      }
+    }
+    if (!loading && user && profile) {
+      void syncAvatar();
+    }
+  }, [user, profile, loading, refreshProfile]);
+
   useEffect(() => {
     if (isLandlord && user) {
       getRoomsByOwner(user.uid).then(rooms => setActualRoomCount(rooms.length));
