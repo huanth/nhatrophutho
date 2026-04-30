@@ -114,6 +114,7 @@ export default function ProfilePage() {
                   <Avatar
                     src={profile.avatarUrl || undefined}
                     name={profile.displayName}
+                    showFallback
                     className="w-24 h-24 text-2xl font-bold border-4 border-sky-100 dark:border-sky-900 shadow-xl"
                   />
                   {isAdmin && (
@@ -254,7 +255,7 @@ export default function ProfilePage() {
       <Footer />
 
       {/* Edit Profile Modal */}
-      <Modal isOpen={isOpen} onOpenChange={onClose} placement="center">
+      <Modal isOpen={isOpen} onOpenChange={setIsOpen} placement="center">
         <ModalContainer className="bg-white dark:bg-slate-900 p-6 rounded-2xl max-w-md w-full mx-auto shadow-2xl">
           <ModalHeader className="flex flex-col gap-1 p-0 mb-4 font-bold text-xl">Chỉnh sửa hồ sơ</ModalHeader>
           <ModalBody className="p-0 mb-6">

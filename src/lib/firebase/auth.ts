@@ -18,6 +18,7 @@ import {
   query,
   serverTimestamp,
   setDoc,
+  updateDoc,
 } from "firebase/firestore";
 import { auth, db } from "./config";
 import type { UserProfile, UserRole } from "@/types/user";
