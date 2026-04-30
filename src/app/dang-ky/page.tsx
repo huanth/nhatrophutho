@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Card } from "@heroui/react";
+import { Card, Separator } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import Navbar from "@/components/ui/Navbar";
 import { signInWithGoogle, signUpWithEmail } from "@/lib/firebase/auth";
@@ -199,9 +199,9 @@ export default function RegisterPage() {
             </form>
 
             <div className="my-5 flex items-center gap-3">
-              <div className="h-px flex-1 bg-slate-200 dark:bg-slate-800" />
+              <Separator className="flex-1" />
               <span className="text-xs font-medium text-slate-400">hoặc</span>
-              <div className="h-px flex-1 bg-slate-200 dark:bg-slate-800" />
+              <Separator className="flex-1" />
             </div>
 
             <button

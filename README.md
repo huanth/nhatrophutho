@@ -1,62 +1,82 @@
-# Nhà Trọ Phú Thọ
+# Nhà Trọ Phú Thọ (NTPT)
 
-Nền tảng tìm kiếm và đăng tin cho thuê phòng trọ số 1 tại Phú Thọ. Dự án được xây dựng với các công nghệ hiện đại nhất nhằm mang lại trải nghiệm mượt mà cho cả người đi thuê và người cho thuê.
+Nền tảng tìm kiếm và đăng tin cho thuê phòng trọ số 1 tại Phú Thọ. Dự án được xây dựng với kiến trúc hiện đại, hiệu năng cao và sẵn sàng chuyển đổi thành ứng dụng di động.
 
 ## 🚀 Công nghệ sử dụng
-- **Framework**: Next.js 16 (App Router)
-- **UI/Styling**: Tailwind CSS v4, HeroUI v3 (React Aria Components)
-- **State Management**: Zustand
-- **Database/Backend**: Firebase (Firestore, Storage, Authentication)
-- **Deployment**: Firebase Hosting / Vercel
-- **Mobile**: Tích hợp sẵn Capacitor (sẵn sàng chuyển thành App iOS/Android)
+
+Dự án sử dụng bộ công nghệ (Tech Stack) hiện đại nhất năm 2025-2026:
+
+- **Framework**: [Next.js 16](https://nextjs.org/) (App Router, Turbopack)
+- **UI/Styling**: 
+  - [Tailwind CSS v4](https://tailwindcss.com/) (CSS-first configuration)
+  - [HeroUI v3](https://heroui.com/) (Rebranding của NextUI, dựa trên React Aria Components)
+  - [Iconify](https://iconify.design/) cho hệ thống icon đa dạng
+- **State Management**: [Zustand](https://zustand-demo.pmnd.rs/) (Lightweight & Fast)
+- **Backend-as-a-Service**: [Firebase](https://firebase.google.com/)
+  - **Firestore**: Cơ sở dữ liệu NoSQL với hệ thống Index tối ưu.
+  - **Authentication**: Google Login & Email/Password.
+  - **Storage**: Lưu trữ hình ảnh phòng trọ.
+- **Mobile Foundation**: [Capacitor](https://capacitorjs.com/) cho phép đóng gói thành App Native iOS/Android.
 
 ## 📦 Cài đặt dự án
 
 ### Yêu cầu hệ thống
 - Node.js v20.x trở lên
-- Trình quản lý package: npm, yarn, hoặc pnpm
+- Firebase CLI (`npm install -g firebase-tools`)
 
-### Cài đặt
-1. Clone dự án về máy:
-```bash
-git clone https://github.com/huanth/nhatrophutho.git
-cd nhatrophutho
-```
+### Các bước cài đặt
+1. **Clone & Install**:
+   ```bash
+   git clone https://github.com/huanth/nhatrophutho.git
+   cd nhatrophutho
+   npm install
+   ```
 
-2. Cài đặt các thư viện:
-```bash
-npm install
-```
+2. **Cấu hình Firebase**:
+   Tạo file `.env.local` và điền thông số từ Firebase Console:
+   ```env
+   NEXT_PUBLIC_FIREBASE_API_KEY=xxx
+   NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=xxx.firebaseapp.com
+   NEXT_PUBLIC_FIREBASE_PROJECT_ID=xxx
+   NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=xxx.firebasestorage.app
+   NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=xxx
+   NEXT_PUBLIC_FIREBASE_APP_ID=xxx
+   ```
 
-3. Cấu hình biến môi trường:
-Đổi tên file `.env.example` thành `.env.local` (nếu có) hoặc tạo file `.env.local` mới và thêm cấu hình Firebase:
-```env
-NEXT_PUBLIC_FIREBASE_API_KEY=your_api_key
-NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
-NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_project
-NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_project.firebasestorage.app
-NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
-NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
-```
+3. **Khởi tạo Firestore**:
+   Deploy rules và indexes:
+   ```bash
+   firebase deploy --only firestore:rules
+   firebase deploy --only firestore:indexes
+   ```
 
 ### Chạy dự án (Development)
 ```bash
 npm run dev
 ```
-Mở trình duyệt tại [http://localhost:3000](http://localhost:3000) để xem ứng dụng.
-
-## 🛠 Lệnh thông dụng
-
-- `npm run dev`: Chạy server dev (với Turbopack)
-- `npm run build`: Đóng gói ứng dụng cho production
-- `npm run start`: Chạy server production sau khi build
-- `npm run mobile`: Build static files và đồng bộ sang Capacitor (Android/iOS)
+Mở [http://localhost:3000](http://localhost:3000) để trải nghiệm.
 
 ## 🌟 Chức năng chính
-- **Tìm kiếm**: Tìm phòng trọ theo huyện/xã, loại phòng, mức giá, diện tích.
-- **Đăng bài (Chủ trọ)**: Tạo và quản lý danh sách phòng trọ cho thuê. Tải ảnh lên Firebase Storage.
-- **Đánh dấu phòng**: Tính năng lưu phòng trọ yêu thích (Sắp ra mắt).
-- **Quản lý (Admin)**: Quản lý người dùng, duyệt/ẩn các bài đăng vi phạm.
+
+- 🏠 **Tìm kiếm thông minh**: Lọc theo xã/phường tại Phú Thọ, khoảng giá, loại phòng.
+- 📝 **Đăng tin chuyên nghiệp**: Form đăng bài tối ưu, hỗ trợ upload nhiều ảnh, tự động tạo slug SEO.
+- 🛡️ **Hệ thống Admin**: 
+  - Duyệt bài đăng (Pending -> Approved/Rejected).
+  - Quản lý người dùng và vai trò (Chủ nhà/Người tìm trọ/Admin).
+- 🔔 **Thông báo thời gian thực**: Nhận thông báo khi bài đăng được duyệt hoặc có tin mới.
+- 🌓 **Chế độ tối (Dark Mode)**: Tối ưu cho trải nghiệm người dùng ban đêm.
 
 ## 📱 Mobile App (Capacitor)
-Dự án được cấu hình để build thành ứng dụng Mobile native thông qua Capacitor. Khi chạy `npm run mobile`, Next.js sẽ xuất static HTML ra thư mục `out/` và tự động đồng bộ sang project Android/iOS.
+Dự án hỗ trợ Hybrid App. Để build bản mobile:
+```bash
+npm run mobile
+```
+Lệnh này sẽ export static HTML và đồng bộ vào thư mục `android/` hoặc `ios/`.
+
+## 🛠 Lệnh thông dụng
+- `npm run lint`: Kiểm tra lỗi code và format.
+- `npm run build`: Build production tối ưu nhất.
+- `firebase deploy`: Deploy toàn bộ lên Firebase Hosting.
+
+---
+*Phát triển bởi đội ngũ Nhà Trọ Phú Thọ - 2026*
