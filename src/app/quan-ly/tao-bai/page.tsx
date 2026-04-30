@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
-import { Input, Textarea, Button, CheckboxGroup, Checkbox, Card } from "@heroui/react";
+import { Button, Card } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import { useAuth } from "@/lib/hooks/useAuth";
 import { createRoom } from "@/lib/firebase/firestore";
@@ -25,12 +25,10 @@ export default function CreateRoomPage() {
     roomType: "phong_tro", amenities: [], ownerPhone: profile?.phone || "", images: [],
   });
 
-  const wards = useMemo(() => {
-    const d = phuThoData.districts.find((d) => d.code === form.district);
-    return d?.wards || [];
-  }, [form.district]);
+  const wards = phuThoData.wards;
 
   const updateForm = (key: string, value: any) => setForm((prev) => ({ ...prev, [key]: value }));
+  const inputClassName = "form-control";
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
@@ -48,7 +46,7 @@ export default function CreateRoomPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!user || !profile) return;
-    if (!form.title || !form.price || !form.district) { setError("Vui lòng điền đầy đủ thông tin bắt buộc"); return; }
+    if (!form.title || !form.price || !form.wardName) { setError("Vui lòng điền đầy đủ thông tin bắt buộc"); return; }
 
     setError("");
     setLoading(true);
@@ -85,22 +83,66 @@ export default function CreateRoomPage() {
         <Card className="border border-slate-200 dark:border-slate-700">
           <Card.Content className="p-5 space-y-4">
             <h2 className="font-semibold flex items-center gap-2"><Icon icon="mdi:information" className="text-sky-500" />Thông tin cơ bản</h2>
-            <Input label="Tiêu đề bài đăng" placeholder="VD: Phòng trọ giá rẻ gần ĐH Hùng Vương" variant="bordered" value={form.title} onValueChange={(v) => updateForm("title", v)} isRequired />
+            <div>
+              <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
+                Tiêu đề bài đăng <span className="text-danger">*</span>
+              </label>
+              <input
+                className={inputClassName}
+                placeholder="VD: Phòng trọ giá rẻ gần ĐH Hùng Vương"
+                value={form.title || ""}
+                onChange={(event) => updateForm("title", event.target.value)}
+                required
+              />
+            </div>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div>
                 <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Loại phòng</label>
                 <select
                   value={form.roomType || ""}
                   onChange={(e) => updateForm("roomType", e.target.value)}
-                  className="w-full h-10 px-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 bg-transparent text-sm focus:outline-none focus:border-sky-500 transition-colors"
+                  className={inputClassName}
                 >
                   {Object.entries(ROOM_TYPE_LABELS).map(([k, v]) => <option key={k} value={k}>{v}</option>)}
                 </select>
               </div>
-              <Input label="Giá thuê (VNĐ/tháng)" type="number" variant="bordered" value={String(form.price || "")} onValueChange={(v) => updateForm("price", Number(v))} startContent={<span className="text-slate-400 text-sm">₫</span>} isRequired />
-              <Input label="Diện tích (m²)" type="number" variant="bordered" value={String(form.area || "")} onValueChange={(v) => updateForm("area", Number(v))} startContent={<Icon icon="mdi:ruler-square" className="text-slate-400" />} isRequired />
+              <div>
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
+                  Giá thuê (VNĐ/tháng) <span className="text-danger">*</span>
+                </label>
+                <input
+                  className={inputClassName}
+                  type="number"
+                  value={String(form.price || "")}
+                  onChange={(event) => updateForm("price", Number(event.target.value))}
+                  required
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
+                  Diện tích (m²) <span className="text-danger">*</span>
+                </label>
+                <input
+                  className={inputClassName}
+                  type="number"
+                  value={String(form.area || "")}
+                  onChange={(event) => updateForm("area", Number(event.target.value))}
+                  required
+                />
+              </div>
             </div>
-            <Textarea label="Mô tả chi tiết" placeholder="Mô tả phòng trọ, tiện ích, quy định..." variant="bordered" minRows={4} value={form.description} onValueChange={(v) => updateForm("description", v)} />
+            <div>
+              <label className="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-300">
+                Mô tả chi tiết
+              </label>
+              <textarea
+                className={inputClassName}
+                placeholder="Mô tả phòng trọ, tiện ích, quy định..."
+                rows={4}
+                value={form.description}
+                onChange={(event) => updateForm("description", event.target.value)}
+              />
+            </div>
           </Card.Content>
         </Card>
 
@@ -108,44 +150,35 @@ export default function CreateRoomPage() {
         <Card className="border border-slate-200 dark:border-slate-700">
           <Card.Content className="p-5 space-y-4">
             <h2 className="font-semibold flex items-center gap-2"><Icon icon="mdi:map-marker" className="text-sky-500" />Vị trí</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4">
               <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Huyện/TP <span className="text-danger">*</span></label>
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Khu vực <span className="text-danger">*</span></label>
                 <select
-                  value={form.district || ""}
+                  value={form.wardName || ""}
                   onChange={(e) => {
-                    const code = e.target.value;
-                    const d = phuThoData.districts.find((x) => x.code === code);
-                    updateForm("district", code);
-                    updateForm("districtName", d?.name || "");
-                    updateForm("ward", ""); updateForm("wardName", "");
+                    const name = e.target.value;
+                    updateForm("ward", name);
+                    updateForm("wardName", name);
                   }}
-                  className="w-full h-10 px-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 bg-transparent text-sm focus:outline-none focus:border-sky-500 transition-colors"
+                  className={inputClassName}
                   required
                 >
-                  <option value="">Chọn Huyện/TP</option>
-                  {phuThoData.districts.map((d) => <option key={d.code} value={d.code}>{d.name}</option>)}
-                </select>
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Xã/Phường</label>
-                <select
-                  value={form.ward || ""}
-                  onChange={(e) => {
-                    const code = e.target.value;
-                    const w = wards.find((x) => x.code === code);
-                    updateForm("ward", code);
-                    updateForm("wardName", w?.name || "");
-                  }}
-                  disabled={!form.district}
-                  className="w-full h-10 px-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 bg-transparent text-sm focus:outline-none focus:border-sky-500 transition-colors disabled:opacity-50"
-                >
-                  <option value="">Chọn Xã/Phường</option>
-                  {wards.map((w) => <option key={w.code} value={w.code}>{w.name}</option>)}
+                  <option value="">Chọn Khu vực</option>
+                  {wards.map((w) => <option key={w.name} value={w.name}>{w.name}</option>)}
                 </select>
               </div>
             </div>
-            <Input label="Địa chỉ cụ thể" placeholder="Số nhà, tên đường, ngõ..." variant="bordered" value={form.address} onValueChange={(v) => updateForm("address", v)} />
+            <div>
+              <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
+                Địa chỉ cụ thể
+              </label>
+              <input
+                className={inputClassName}
+                placeholder="Số nhà, tên đường, ngõ..."
+                value={form.address || ""}
+                onChange={(event) => updateForm("address", event.target.value)}
+              />
+            </div>
           </Card.Content>
         </Card>
 
@@ -153,13 +186,31 @@ export default function CreateRoomPage() {
         <Card className="border border-slate-200 dark:border-slate-700">
           <Card.Content className="p-5 space-y-4">
             <h2 className="font-semibold flex items-center gap-2"><Icon icon="mdi:star" className="text-sky-500" />Tiện ích</h2>
-            <CheckboxGroup value={form.amenities} onValueChange={(v) => updateForm("amenities", v)} orientation="horizontal" classNames={{ wrapper: "gap-3" }}>
-              {AMENITIES.map((a) => (
-                <Checkbox key={a.key} value={a.key} classNames={{ label: "text-sm" }}>
-                  <span className="flex items-center gap-1"><Icon icon={a.icon} className="text-sky-500" />{a.label}</span>
-                </Checkbox>
-              ))}
-            </CheckboxGroup>
+            <div className="flex flex-wrap gap-2 pt-2">
+              {AMENITIES.map((a) => {
+                const isSelected = form.amenities?.includes(a.key);
+                return (
+                  <button
+                    key={a.key}
+                    type="button"
+                    onClick={() => {
+                      const current = form.amenities || [];
+                      const next = isSelected 
+                        ? current.filter(k => k !== a.key)
+                        : [...current, a.key];
+                      updateForm("amenities", next);
+                    }}
+                    className={`px-4 py-2 rounded-full border transition-all duration-200 text-sm font-medium flex items-center gap-2 select-none ${
+                      isSelected 
+                        ? "border-sky-500 bg-sky-50 text-sky-700 dark:bg-sky-900/20 dark:text-sky-400" 
+                        : "border-slate-200 bg-white text-slate-600 hover:border-slate-300 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-400 dark:hover:border-slate-600"
+                    }`}
+                  >
+                    {a.label}
+                  </button>
+                );
+              })}
+            </div>
           </Card.Content>
         </Card>
 
@@ -192,13 +243,24 @@ export default function CreateRoomPage() {
         <Card className="border border-slate-200 dark:border-slate-700">
           <Card.Content className="p-5 space-y-4">
             <h2 className="font-semibold flex items-center gap-2"><Icon icon="mdi:phone" className="text-sky-500" />Liên hệ</h2>
-            <Input label="Số điện thoại" variant="bordered" value={form.ownerPhone} onValueChange={(v) => updateForm("ownerPhone", v)} startContent={<Icon icon="mdi:phone" className="text-slate-400" />} isRequired />
+            <div>
+              <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
+                Số điện thoại <span className="text-danger">*</span>
+              </label>
+              <input
+                className={inputClassName}
+                value={form.ownerPhone || ""}
+                onChange={(event) => updateForm("ownerPhone", event.target.value)}
+                required
+              />
+            </div>
           </Card.Content>
         </Card>
 
         <div className="flex gap-3 justify-end">
-          <Button variant="flat" onPress={() => router.back()}>Hủy</Button>
-          <Button type="submit" color="primary" size="lg" isLoading={loading} className="font-semibold shadow-lg shadow-sky-500/25" startContent={!loading && <Icon icon="mdi:send" />}>
+          <Button variant="secondary" onPress={() => router.back()}>Hủy</Button>
+          <Button type="submit" size="lg" isPending={loading} className="font-semibold shadow-lg shadow-sky-500/25">
+            {!loading && <Icon icon="mdi:send" />}
             Đăng bài
           </Button>
         </div>

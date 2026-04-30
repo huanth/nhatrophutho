@@ -8,9 +8,11 @@ import Footer from "@/components/ui/Footer";
 import RoomCard, { RoomCardSkeleton } from "@/components/ui/RoomCard";
 import SearchFilterForm from "@/components/forms/SearchFilterForm";
 import phuThoData from "@/data/phu-tho-locations.json";
+import { useFilterStore } from "@/stores/filterStore";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { getFeaturedRooms } from "@/lib/firebase/firestore";
+import { PRICE_RANGES } from "@/types/room";
 import type { Room } from "@/types/room";
 
 // Stats data
@@ -21,14 +23,14 @@ const stats = [
   { icon: "mdi:handshake", value: "200+", label: "Chủ trọ" },
 ];
 
-// Popular districts
-const popularDistricts = [
-  { code: "227", name: "TP. Việt Trì", rooms: 150, icon: "mdi:city-variant" },
-  { code: "228", name: "TX. Phú Thọ", rooms: 80, icon: "mdi:domain" },
-  { code: "237", name: "Lâm Thao", rooms: 45, icon: "mdi:home-city" },
-  { code: "233", name: "Phù Ninh", rooms: 35, icon: "mdi:home-variant" },
-  { code: "230", name: "Đoan Hùng", rooms: 25, icon: "mdi:home-modern" },
-  { code: "235", name: "Cẩm Khê", rooms: 20, icon: "mdi:home" },
+// Popular wards
+const popularWards = [
+  { code: "Phường Việt Trì", name: "P. Việt Trì", icon: "mdi:city-variant" },
+  { code: "Phường Nông Trang", name: "P. Nông Trang", icon: "mdi:domain" },
+  { code: "Phường Thanh Miếu", name: "P. Thanh Miếu", icon: "mdi:home-city" },
+  { code: "Phường Vân Phú", name: "P. Vân Phú", icon: "mdi:home-variant" },
+  { code: "Phường Phong Châu", name: "P. Phong Châu", icon: "mdi:home-modern" },
+  { code: "Xã Thanh Sơn", name: "X. Thanh Sơn", icon: "mdi:home" },
 ];
 
 export default function HomePage() {
@@ -51,7 +53,20 @@ export default function HomePage() {
   }, []);
 
   const handleSearch = () => {
-    router.push("/tim-phong");
+    const { filters } = useFilterStore.getState();
+    const params = new URLSearchParams();
+
+    if (filters.ward) params.set("ward", filters.ward);
+    if (filters.roomType) params.set("roomType", filters.roomType);
+    if (filters.minPrice !== undefined && filters.maxPrice !== undefined) {
+      const idx = PRICE_RANGES.findIndex(
+        (r) => r.min === filters.minPrice && r.max === filters.maxPrice
+      );
+      if (idx >= 0) params.set("price", String(idx));
+    }
+
+    const url = params.toString() ? `/tim-phong?${params.toString()}` : "/tim-phong";
+    router.push(url);
   };
 
   return (
@@ -172,44 +187,15 @@ export default function HomePage() {
                 ? featuredRooms.map((room) => (
                     <RoomCard key={room.id} room={room} />
                   ))
-                : /* Demo cards khi chưa có data */
-                  Array.from({ length: 6 }).map((_, i) => (
-                    <Card
-                      key={i}
-                      className="overflow-hidden border border-slate-200 dark:border-slate-700 group hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
-                    >
-                      <div className="aspect-[4/3] bg-gradient-to-br from-sky-100 to-emerald-100 dark:from-sky-900/30 dark:to-emerald-900/30 flex items-center justify-center">
-                        <Icon
-                          icon="mdi:home"
-                          className="text-5xl text-sky-300 dark:text-sky-700"
-                        />
-                      </div>
-                      <Card.Content className="px-4 pt-3 pb-3">
-                        <p className="price-tag text-lg">
-                          {(1.5 + i * 0.5).toFixed(1)} triệu/tháng
-                        </p>
-                        <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-100 mt-1">
-                          Phòng trọ mẫu #{i + 1} - Khu vực{" "}
-                          {popularDistricts[i]?.name || "Việt Trì"}
-                        </h3>
-                        <div className="flex items-center gap-1 text-xs text-slate-500 mt-1">
-                          <Icon icon="mdi:map-marker" className="text-sky-500" />
-                          <span>
-                            {popularDistricts[i]?.name || "TP. Việt Trì"},{" "}
-                            Phú Thọ
-                          </span>
-                        </div>
-                        <div className="flex items-center gap-3 mt-2">
-                          <span className="flex items-center gap-1 text-xs text-slate-600 dark:text-slate-300">
-                            <Icon icon="mdi:ruler-square" className="text-emerald-500" />
-                            {15 + i * 3}m²
-                          </span>
-                          <Icon icon="mdi:wifi" className="text-sm text-slate-400" />
-                          <Icon icon="mdi:air-conditioner" className="text-sm text-slate-400" />
-                        </div>
-                      </Card.Content>
-                    </Card>
-                  ))}
+                : (
+                  <div className="col-span-full flex flex-col items-center justify-center py-16 text-center">
+                    <div className="w-20 h-20 rounded-3xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center mb-4">
+                      <Icon icon="mdi:home-search" className="text-4xl text-slate-300" />
+                    </div>
+                    <h3 className="text-lg font-semibold text-slate-600 dark:text-slate-300 mb-2">Chưa có phòng trọ nào</h3>
+                    <p className="text-sm text-slate-500 max-w-md">Hệ thống đang chờ các chủ trọ đăng bài. Hãy quay lại sau nhé!</p>
+                  </div>
+                )}
             </div>
           </div>
         </section>
@@ -228,24 +214,24 @@ export default function HomePage() {
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-              {popularDistricts.map((district) => (
+              {popularWards.map((ward) => (
                 <Link
-                  key={district.code}
-                  href={`/tim-phong?district=${district.code}`}
+                  key={ward.code}
+                  href={`/tim-phong?ward=${ward.code}`}
                   className="group"
                 >
                   <Card className="text-center p-4 border border-slate-200 dark:border-slate-700 hover:border-sky-300 dark:hover:border-sky-600 hover:shadow-lg transition-all duration-300 group-hover:-translate-y-1">
                     <div className="w-14 h-14 mx-auto rounded-2xl bg-gradient-to-br from-sky-100 to-emerald-100 dark:from-sky-900/30 dark:to-emerald-900/30 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
                       <Icon
-                        icon={district.icon}
+                        icon={ward.icon}
                         className="text-2xl text-sky-600 dark:text-sky-400"
                       />
                     </div>
                     <h3 className="font-semibold text-sm text-slate-800 dark:text-slate-200 group-hover:text-sky-600 dark:group-hover:text-sky-400 transition-colors">
-                      {district.name}
+                      {ward.name}
                     </h3>
                     <p className="text-xs text-slate-500 mt-1">
-                      {district.rooms}+ phòng
+                      Xem phòng
                     </p>
                   </Card>
                 </Link>

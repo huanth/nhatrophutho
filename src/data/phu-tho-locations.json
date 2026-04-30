@@ -1,477 +1,414 @@
 {
-  "province": {
-    "code": "25",
-    "name": "Tỉnh Phú Thọ"
-  },
-  "districts": [
+  "wards": [
     {
-      "code": "227",
-      "name": "Thành phố Việt Trì",
-      "wards": [
-        {
-          "code": "100001",
-          "name": "Phường Nông Trang"
-        },
-        {
-          "code": "100002",
-          "name": "Phường Thanh Miếu"
-        },
-        {
-          "code": "100003",
-          "name": "Phường Vân Phú"
-        },
-        {
-          "code": "100000",
-          "name": "Phường Việt Trì"
-        },
-        {
-          "code": "100004",
-          "name": "Xã Hy Cương"
-        }
+      "name": "Phường Việt Trì",
+      "mergedFrom": [
+        "Phường Tân Dân",
+        "phường Gia Cẩm",
+        "phường Minh Nông",
+        "phường Dữu Lâu",
+        "xã Trưng Vương"
       ]
     },
     {
-      "code": "228",
-      "name": "Thị xã Phú Thọ",
-      "wards": [
-        {
-          "code": "100007",
-          "name": "Phường Âu Cơ"
-        },
-        {
-          "code": "100005",
-          "name": "Phường Phong Châu"
-        },
-        {
-          "code": "100006",
-          "name": "Phường Phú Thọ"
-        }
+      "name": "Phường Nông Trang",
+      "mergedFrom": [
+        "Phường Nông Trang",
+        "phường Minh Phương",
+        "xã Thụy Vân"
       ]
     },
     {
-      "code": "230",
-      "name": "Huyện Đoan Hùng",
-      "wards": [
-        {
-          "code": "100012",
-          "name": "Xã Bằng Luân"
-        },
-        {
-          "code": "100010",
-          "name": "Xã Chân Mộng"
-        },
-        {
-          "code": "100011",
-          "name": "Xã Chí Đám"
-        },
-        {
-          "code": "100008",
-          "name": "Xã Đoan Hùng"
-        },
-        {
-          "code": "100009",
-          "name": "Xã Tây Cốc"
-        }
+      "name": "Phường Thanh Miếu",
+      "mergedFrom": [
+        "Phường Thanh Miếu",
+        "phường Thọ Sơn",
+        "phường Bạch Hạc",
+        "phường Tiên Cát",
+        "xã Sông Lô"
       ]
     },
     {
-      "code": "231",
-      "name": "Huyện Hạ Hoà",
-      "wards": [
-        {
-          "code": "8053",
-          "name": "Thị trấn Hạ Hoà"
-        },
-        {
-          "code": "100014",
-          "name": "Xã Đan Thượng"
-        },
-        {
-          "code": "100013",
-          "name": "Xã Hạ Hòa"
-        },
-        {
-          "code": "100018",
-          "name": "Xã Hiền Lương"
-        },
-        {
-          "code": "100017",
-          "name": "Xã Văn Lang"
-        },
-        {
-          "code": "100016",
-          "name": "Xã Vĩnh Chân"
-        },
-        {
-          "code": "100015",
-          "name": "Xã Yên Kỳ"
-        }
+      "name": "Phường Vân Phú",
+      "mergedFrom": [
+        "Phường Vân Phú",
+        "xã Phượng Lâu",
+        "xã Kim Đức",
+        "xã Hùng Lô"
       ]
     },
     {
-      "code": "232",
-      "name": "Huyện Thanh Ba",
-      "wards": [
-        {
-          "code": "100023",
-          "name": "Xã Chí Tiên"
-        },
-        {
-          "code": "100022",
-          "name": "Xã Đông Thành"
-        },
-        {
-          "code": "100021",
-          "name": "Xã Hoàng Cương"
-        },
-        {
-          "code": "100024",
-          "name": "Xã Liên Minh"
-        },
-        {
-          "code": "100020",
-          "name": "Xã Quảng Yên"
-        },
-        {
-          "code": "100019",
-          "name": "Xã Thanh Ba"
-        }
+      "name": "Xã Hy Cương",
+      "mergedFrom": [
+        "Xã Hy Cương",
+        "xã Thanh Đình",
+        "xã Chu Hóa"
       ]
     },
     {
-      "code": "233",
-      "name": "Huyện Phù Ninh",
-      "wards": [
-        {
-          "code": "100029",
-          "name": "Xã Bình Phú"
-        },
-        {
-          "code": "100026",
-          "name": "Xã Dân Chủ"
-        },
-        {
-          "code": "100027",
-          "name": "Xã Phú Mỹ"
-        },
-        {
-          "code": "100025",
-          "name": "Xã Phù Ninh"
-        },
-        {
-          "code": "100028",
-          "name": "Xã Trạm Thản"
-        }
+      "name": "Xã Lâm Thao",
+      "mergedFrom": [
+        "Thị trấn Lâm Thao",
+        "thị trấn Hùng Sơn",
+        "xã Thạch Sơn"
       ]
     },
     {
-      "code": "234",
-      "name": "Huyện Yên Lập",
-      "wards": [
-        {
-          "code": "8290",
-          "name": "Thị trấn Yên Lập"
-        },
-        {
-          "code": "8320",
-          "name": "Xã Đồng Lạc"
-        },
-        {
-          "code": "8326",
-          "name": "Xã Đồng Thịnh"
-        },
-        {
-          "code": "8314",
-          "name": "Xã Hưng Long"
-        },
-        {
-          "code": "8299",
-          "name": "Xã Lương Sơn"
-        },
-        {
-          "code": "8332",
-          "name": "Xã Minh Hòa"
-        },
-        {
-          "code": "8293",
-          "name": "Xã Mỹ Lung"
-        },
-        {
-          "code": "8296",
-          "name": "Xã Mỹ Lương"
-        },
-        {
-          "code": "8317",
-          "name": "Xã Nga Hoàng"
-        },
-        {
-          "code": "8338",
-          "name": "Xã Ngọc Đồng"
-        },
-        {
-          "code": "8335",
-          "name": "Xã Ngọc Lập"
-        },
-        {
-          "code": "8329",
-          "name": "Xã Phúc Khánh"
-        },
-        {
-          "code": "8323",
-          "name": "Xã Thượng Long"
-        },
-        {
-          "code": "8311",
-          "name": "Xã Trung Sơn"
-        },
-        {
-          "code": "8302",
-          "name": "Xã Xuân An"
-        },
-        {
-          "code": "8308",
-          "name": "Xã Xuân Thủy"
-        },
-        {
-          "code": "8305",
-          "name": "Xã Xuân Viên"
-        }
+      "name": "Xã Xuân Lũng",
+      "mergedFrom": [
+        "Xã Xuân Lũng",
+        "xã Tiên Kiên",
+        "xã Xuân Huy"
       ]
     },
     {
-      "code": "235",
-      "name": "Huyện Cẩm Khê",
-      "wards": [
-        {
-          "code": "100030",
-          "name": "Xã Cẩm Khê"
-        },
-        {
-          "code": "100033",
-          "name": "Xã Đồng Lương"
-        },
-        {
-          "code": "100032",
-          "name": "Xã Hùng Việt"
-        },
-        {
-          "code": "100031",
-          "name": "Xã Phú Khê"
-        },
-        {
-          "code": "100034",
-          "name": "Xã Tiên Lương"
-        },
-        {
-          "code": "100035",
-          "name": "Xã Vân Bán"
-        }
+      "name": "Xã Phùng Nguyên",
+      "mergedFrom": [
+        "Xã Phùng Nguyên",
+        "xã Tứ Xã",
+        "xã Sơn Vi"
       ]
     },
     {
-      "code": "236",
-      "name": "Huyện Tam Nông",
-      "wards": [
-        {
-          "code": "8434",
-          "name": "Thị trấn Hưng Hoá"
-        },
-        {
-          "code": "100039",
-          "name": "Xã Hiền Quan"
-        },
-        {
-          "code": "100036",
-          "name": "Xã Tam Nông"
-        },
-        {
-          "code": "100037",
-          "name": "Xã Thọ Văn"
-        },
-        {
-          "code": "100038",
-          "name": "Xã Vạn Xuân"
-        }
+      "name": "Xã Bản Nguyên",
+      "mergedFrom": [
+        "Xã Bản Nguyên",
+        "xã Cao Xá",
+        "xã Vĩnh Lại"
       ]
     },
     {
-      "code": "237",
-      "name": "Huyện Lâm Thao",
-      "wards": [
-        {
-          "code": "100043",
-          "name": "Xã Bản Nguyên"
-        },
-        {
-          "code": "100040",
-          "name": "Xã Lâm Thao"
-        },
-        {
-          "code": "100042",
-          "name": "Xã Phùng Nguyên"
-        },
-        {
-          "code": "100041",
-          "name": "Xã Xuân Lũng"
-        }
+      "name": "Phường Phong Châu",
+      "mergedFrom": [
+        "Phường Phong Châu",
+        "xã Phú Hộ",
+        "xã Hà Thạch"
       ]
     },
     {
-      "code": "238",
-      "name": "Huyện Thanh Sơn",
-      "wards": [
-        {
-          "code": "8614",
-          "name": "Xã Cự Đồng"
-        },
-        {
-          "code": "8638",
-          "name": "Xã Đông Cửu"
-        },
-        {
-          "code": "8632",
-          "name": "Xã Hương Cần"
-        },
-        {
-          "code": "8635",
-          "name": "Xã Khả Cửu"
-        },
-        {
-          "code": "8653",
-          "name": "Xã Lương Nha"
-        },
-        {
-          "code": "8605",
-          "name": "Xã Tất Thắng"
-        },
-        {
-          "code": "8623",
-          "name": "Xã Thắng Sơn"
-        },
-        {
-          "code": "100044",
-          "name": "Xã Thanh Sơn"
-        },
-        {
-          "code": "8650",
-          "name": "Xã Thượng Cửu"
-        },
-        {
-          "code": "8659",
-          "name": "Xã Tinh Nhuệ"
-        },
-        {
-          "code": "100046",
-          "name": "Xã Văn Miếu"
-        },
-        {
-          "code": "100045",
-          "name": "Xã Võ Miếu"
-        },
-        {
-          "code": "8644",
-          "name": "Xã Yên Lãng"
-        },
-        {
-          "code": "8647",
-          "name": "Xã Yên Lương"
-        },
-        {
-          "code": "8656",
-          "name": "Xã Yên Sơn"
-        }
+      "name": "Phường Phú Thọ",
+      "mergedFrom": [
+        "Phường Hùng Vương",
+        "xã Văn Lung",
+        "xã Hà Lộc"
       ]
     },
     {
-      "code": "239",
-      "name": "Huyện Thanh Thuỷ",
-      "wards": [
-        {
-          "code": "100048",
-          "name": "Xã Đào Xá"
-        },
-        {
-          "code": "100047",
-          "name": "Xã Thanh Thủy"
-        },
-        {
-          "code": "100049",
-          "name": "Xã Tu Vũ"
-        }
+      "name": "Phường Âu Cơ",
+      "mergedFrom": [
+        "Phường Âu Cơ",
+        "phường Thanh Vinh",
+        "xã Thanh Minh"
       ]
     },
     {
-      "code": "240",
-      "name": "Huyện Tân Sơn",
-      "wards": [
-        {
-          "code": "8566",
-          "name": "Thị trấn Tân Phú"
-        },
-        {
-          "code": "8557",
-          "name": "Xã Đồng Sơn"
-        },
-        {
-          "code": "8554",
-          "name": "Xã Kiệt Sơn"
-        },
-        {
-          "code": "8617",
-          "name": "Xã Kim Thượng"
-        },
-        {
-          "code": "8560",
-          "name": "Xã Lai Đồng"
-        },
-        {
-          "code": "8608",
-          "name": "Xã Long Cốc"
-        },
-        {
-          "code": "8593",
-          "name": "Xã Minh Đài"
-        },
-        {
-          "code": "8569",
-          "name": "Xã Mỹ Thuận"
-        },
-        {
-          "code": "8620",
-          "name": "Xã Tam Thanh"
-        },
-        {
-          "code": "8578",
-          "name": "Xã Tân Sơn"
-        },
-        {
-          "code": "8548",
-          "name": "Xã Thạch Kiệt"
-        },
-        {
-          "code": "8545",
-          "name": "Xã Thu Cúc"
-        },
-        {
-          "code": "8551",
-          "name": "Xã Thu Ngạc"
-        },
-        {
-          "code": "8596",
-          "name": "Xã Văn Luông"
-        },
-        {
-          "code": "8626",
-          "name": "Xã Vinh Tiền"
-        },
-        {
-          "code": "8590",
-          "name": "Xã Xuân Đài"
-        },
-        {
-          "code": "8599",
-          "name": "Xã Xuân Sơn"
-        }
+      "name": "Xã Phù Ninh",
+      "mergedFrom": [
+        "Thị trấn Phong Châu",
+        "xã Phù Ninh",
+        "xã Phú Nham",
+        "xã Phú Lộc"
+      ]
+    },
+    {
+      "name": "Xã Dân Chủ",
+      "mergedFrom": [
+        "Xã Bảo Thanh",
+        "xã Gia Thanh",
+        "xã Hạ Giáp",
+        "xã Trị Quận"
+      ]
+    },
+    {
+      "name": "Xã Phú Mỹ",
+      "mergedFrom": [
+        "Xã Phú Mỹ",
+        "xã Lệ Mỹ",
+        "xã Liên Hoa"
+      ]
+    },
+    {
+      "name": "Xã Trạm Thản",
+      "mergedFrom": [
+        "Xã Trạm Thản",
+        "xã Tiên Phú",
+        "xã Trung Giáp"
+      ]
+    },
+    {
+      "name": "Xã Bình Phú",
+      "mergedFrom": [
+        "Xã Bình Phú",
+        "xã An Đạo",
+        "xã Tiên Du"
+      ]
+    },
+    {
+      "name": "Xã Thanh Ba",
+      "mergedFrom": [
+        "Thị trấn Thanh Ba",
+        "xã Đồng Xuân",
+        "xã Vân Lĩnh",
+        "xã Hanh Cù"
+      ]
+    },
+    {
+      "name": "Xã Quảng Yên",
+      "mergedFrom": [
+        "Xã Quảng Yên",
+        "xã Đại An",
+        "xã Đông Lĩnh"
+      ]
+    },
+    {
+      "name": "Xã Hoàng Cương",
+      "mergedFrom": [
+        "Xã Hoàng Cương",
+        "xã Mạn Lạn",
+        "xã Ninh Dân"
+      ]
+    },
+    {
+      "name": "Xã Đông Thành",
+      "mergedFrom": [
+        "Xã Đông Thành",
+        "xã Khải Xuân",
+        "xã Võ Lao"
+      ]
+    },
+    {
+      "name": "Xã Chí Tiên",
+      "mergedFrom": [
+        "Xã Chí Tiên",
+        "xã Sơn Cương",
+        "xã Thanh Hà"
+      ]
+    },
+    {
+      "name": "Xã Liên Minh",
+      "mergedFrom": [
+        "Xã Đỗ Xuyên",
+        "xã Lương Lỗ",
+        "xã Đỗ Sơn"
+      ]
+    },
+    {
+      "name": "Xã Đoan Hùng",
+      "mergedFrom": [
+        "Thị trấn Đoan Hùng",
+        "xã Ngọc Quan",
+        "xã Hợp Nhất"
+      ]
+    },
+    {
+      "name": "Xã Tây Cốc",
+      "mergedFrom": [
+        "Xã Tây Cốc",
+        "xã Ca Đình",
+        "xã Phú Lâm"
+      ]
+    },
+    {
+      "name": "Xã Chân Mộng",
+      "mergedFrom": [
+        "Xã Chân Mộng",
+        "xã Hùng Long",
+        "xã Yên Kiện"
+      ]
+    },
+    {
+      "name": "Xã Chí Đám",
+      "mergedFrom": [
+        "Xã Chí Đám",
+        "xã Hùng Xuyên"
+      ]
+    },
+    {
+      "name": "Xã Bằng Luân",
+      "mergedFrom": [
+        "Xã Bằng Luân",
+        "xã Bằng Doãn",
+        "xã Phúc Lai"
+      ]
+    },
+    {
+      "name": "Xã Hạ Hòa",
+      "mergedFrom": [
+        "Thị trấn Hạ Hòa",
+        "xã Minh Hạc",
+        "xã Ấm Hạ",
+        "xã Gia Điền"
+      ]
+    },
+    {
+      "name": "Xã Đan Thượng",
+      "mergedFrom": [
+        "Xã Đan Thượng",
+        "xã Tứ Hiệp",
+        "xã Đại Phạm",
+        "xã Hà Lương"
+      ]
+    },
+    {
+      "name": "Xã Yên Kỳ",
+      "mergedFrom": [
+        "Xã Yên Kỳ",
+        "xã Phương Viên",
+        "xã Hương Xạ"
+      ]
+    },
+    {
+      "name": "Xã Vĩnh Chân",
+      "mergedFrom": [
+        "Xã Vĩnh Chân",
+        "xã Lang Sơn",
+        "xã Yên Luật"
+      ]
+    },
+    {
+      "name": "Xã Văn Lang",
+      "mergedFrom": [
+        "Xã Văn Lang",
+        "xã Minh Côi",
+        "xã Bằng Giã",
+        "xã Vô Tranh"
+      ]
+    },
+    {
+      "name": "Xã Hiền Lương",
+      "mergedFrom": [
+        "Xã Hiền Lương",
+        "xã Xuân Áng"
+      ]
+    },
+    {
+      "name": "Xã Cẩm Khê",
+      "mergedFrom": [
+        "Thị trấn Cẩm Khê",
+        "xã Minh Tân",
+        "xã Phong Thịnh"
+      ]
+    },
+    {
+      "name": "Xã Phú Khê",
+      "mergedFrom": [
+        "Xã Phú Khê",
+        "xã Hương Lung"
+      ]
+    },
+    {
+      "name": "Xã Hùng Việt",
+      "mergedFrom": [
+        "Xã Hùng Việt",
+        "xã Nhật Tiến"
+      ]
+    },
+    {
+      "name": "Xã Đồng Lương",
+      "mergedFrom": [
+        "Xã Đồng Lương",
+        "xã Điêu Lương",
+        "xã Yên Dưỡng"
+      ]
+    },
+    {
+      "name": "Xã Tiên Lương",
+      "mergedFrom": [
+        "Xã Tiên Lương",
+        "xã Minh Thắng",
+        "xã Phượng Vĩ"
+      ]
+    },
+    {
+      "name": "Xã Vân Bán",
+      "mergedFrom": [
+        "Xã Văn Bán",
+        "xã Tùng Khê",
+        "xã Tam Sơn"
+      ]
+    },
+    {
+      "name": "Xã Tam Nông",
+      "mergedFrom": [
+        "Thị trấn Hưng Hóa",
+        "xã Dân Quyền",
+        "xã Hương Nộn"
+      ]
+    },
+    {
+      "name": "Xã Thọ Văn",
+      "mergedFrom": [
+        "Xã Thọ Văn",
+        "xã Tề Lễ",
+        "xã Dị Nậu"
+      ]
+    },
+    {
+      "name": "Xã Vạn Xuân",
+      "mergedFrom": [
+        "Xã Vạn Xuân",
+        "xã Lam Sơn",
+        "xã Quang Húc"
+      ]
+    },
+    {
+      "name": "Xã Hiền Quan",
+      "mergedFrom": [
+        "Xã Hiền Quan",
+        "xã Bắc Sơn",
+        "xã Thanh Uyên"
+      ]
+    },
+    {
+      "name": "Xã Thanh Thủy",
+      "mergedFrom": [
+        "Thị trấn Thanh Thủy",
+        "xã Sơn Thủy",
+        "xã Bảo Yên",
+        "xã Đoan Hạ"
+      ]
+    },
+    {
+      "name": "Xã Đào Xá",
+      "mergedFrom": [
+        "Xã Đào Xá",
+        "xã Tân Phương",
+        "xã Thạch Đồng",
+        "xã Xuân Lộc"
+      ]
+    },
+    {
+      "name": "Xã Tu Vũ",
+      "mergedFrom": [
+        "Xã Tu Vũ",
+        "xã Đồng Trung",
+        "xã Hoàng Xá"
+      ]
+    },
+    {
+      "name": "Xã Thanh Sơn",
+      "mergedFrom": [
+        "Thị trấn Thanh Sơn",
+        "xã Sơn Hùng",
+        "xã Thục Luyện",
+        "xã Thạch Khoán",
+        "xã Giáp Lai"
+      ]
+    },
+    {
+      "name": "Xã Võ Miếu",
+      "mergedFrom": [
+        "Xã Võ Miếu",
+        "xã Địch Quả",
+        "xã Cự Thắng"
+      ]
+    },
+    {
+      "name": "Xã Văn Miếu",
+      "mergedFrom": [
+        "Xã Văn Miếu",
+        "xã Tân Minh",
+        "xã Tân Lập"
       ]
     }
   ]
