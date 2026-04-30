@@ -18,7 +18,7 @@ import { updateUserProfile } from "@/lib/firebase/auth";
 const roleLabels = {
   admin: { label: "Quản trị viên", color: "danger" as const },
   landlord: { label: "Chủ nhà trọ", color: "success" as const },
-  user: { label: "Người tìm trọ", color: "primary" as const },
+  user: { label: "Người tìm trọ", color: "default" as const },
 };
 
 export default function ProfilePage() {

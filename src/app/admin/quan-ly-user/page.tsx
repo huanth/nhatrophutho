@@ -6,8 +6,8 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from "@/lib/firebase/config";
 import { USER_ROLE_LABELS, type UserProfile, type UserRole } from "@/types/user";
 
-const roleColors: Record<UserRole, "primary" | "success" | "warning"> = {
-  user: "primary",
+const roleColors: Record<UserRole, "default" | "success" | "warning"> = {
+  user: "default",
   landlord: "success",
   admin: "warning",
 };
