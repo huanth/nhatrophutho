@@ -5,7 +5,7 @@ import { useAuth } from "@/lib/hooks/useAuth";
 import { 
   Card, Avatar, Button, Chip, Modal, 
   ModalHeader, ModalBody, ModalFooter,
-  useDisclosure, Input, CardContent, ModalContainer
+  Input, CardContent, ModalContainer
 } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import { formatDate } from "@/lib/utils";
@@ -24,7 +24,11 @@ const roleLabels = {
 export default function ProfilePage() {
   const { user, profile, loading, isLandlord, isAdmin, refreshProfile } = useAuth();
   const [actualRoomCount, setActualRoomCount] = useState<number | null>(null);
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  
+  // Use useState instead of useDisclosure to avoid HeroUI version issues
+  const [isOpen, setIsOpen] = useState(false);
+  const onOpen = () => setIsOpen(true);
+  const onClose = () => setIsOpen(false);
   
   const [isSaving, setIsSaving] = useState(false);
   const [editForm, setEditForm] = useState({
@@ -53,7 +57,7 @@ export default function ProfilePage() {
     try {
       await updateUserProfile(user.uid, editForm);
       await refreshProfile();
-      onOpenChange(); // Close modal
+      onClose();
     } catch (error) {
       console.error("Error updating profile:", error);
     } finally {
@@ -222,7 +226,7 @@ export default function ProfilePage() {
       <Footer />
 
       {/* Edit Profile Modal */}
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="center">
+      <Modal isOpen={isOpen} onOpenChange={onClose} placement="center">
         <ModalContainer className="bg-white dark:bg-slate-900 p-6 rounded-2xl max-w-md w-full mx-auto shadow-2xl">
           <ModalHeader className="flex flex-col gap-1 p-0 mb-4 font-bold text-xl">Chỉnh sửa hồ sơ</ModalHeader>
           <ModalBody className="p-0 mb-6">
@@ -242,10 +246,10 @@ export default function ProfilePage() {
             </div>
           </ModalBody>
           <ModalFooter className="p-0 flex justify-end gap-2">
-            <Button variant="flat" onPress={() => onOpenChange()}>
+            <Button variant="flat" onPress={onClose}>
               Hủy
             </Button>
-            <Button color="primary" onPress={() => handleSave()} isPending={isSaving}>
+            <Button color="primary" onPress={() => handleSave()} isLoading={isSaving}>
               Lưu thay đổi
             </Button>
           </ModalFooter>
