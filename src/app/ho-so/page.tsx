@@ -274,19 +274,16 @@ export default function ProfilePage() {
             <div className="space-y-4">
               <Input
                 label="Họ và tên"
-                variant="bordered"
                 value={editForm.displayName}
                 onChange={(e) => setEditForm(prev => ({ ...prev, displayName: e.target.value }))}
               />
               <Input
                 label="Số điện thoại"
-                variant="bordered"
                 value={editForm.phone}
                 onChange={(e) => setEditForm(prev => ({ ...prev, phone: e.target.value }))}
               />
               <Input
                 label="Link ảnh đại diện (URL)"
-                variant="bordered"
                 value={editForm.avatarUrl}
                 placeholder="https://example.com/avatar.jpg"
                 onChange={(e) => setEditForm(prev => ({ ...prev, avatarUrl: e.target.value }))}
