@@ -11,10 +11,12 @@ import Footer from "@/components/ui/Footer";
 import { getRoomBySlug, incrementViewCount } from "@/lib/firebase/firestore";
 import { ROOM_TYPE_LABELS, AMENITIES, type Room } from "@/types/room";
 import { formatPrice, formatArea, formatDate } from "@/lib/utils";
+import { useAuth } from "@/lib/hooks/useAuth";
 
 export default function RoomDetailPage() {
   const params = useParams();
   const slug = params.slug as string;
+  const { user } = useAuth();
   const [room, setRoom] = useState<Room | null>(null);
   const [loading, setLoading] = useState(true);
   const [activeImage, setActiveImage] = useState(0);
@@ -22,7 +24,7 @@ export default function RoomDetailPage() {
   useEffect(() => {
     async function load() {
       try {
-        const data = await getRoomBySlug(slug);
+        const data = await getRoomBySlug(slug, user?.uid);
         setRoom(data);
         if (data) {
           void incrementViewCount(data.id);
@@ -34,7 +36,7 @@ export default function RoomDetailPage() {
       }
     }
     load();
-  }, [slug]);
+  }, [slug, user?.uid]);
 
   if (loading) {
     return (

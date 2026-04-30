@@ -133,24 +133,41 @@ export async function getRooms(
 }
 
 // Get single room by slug
-export async function getRoomBySlug(slug: string): Promise<Room | null> {
+export async function getRoomBySlug(slug: string, currentUserId?: string): Promise<Room | null> {
   const roomsRef = collection(db, ROOMS_COLLECTION);
-  const q = query(
+  
+  // Try approved first
+  const qApproved = query(
     roomsRef,
     where("slug", "==", slug),
+    where("status", "==", "approved"),
     limit(1)
   );
-  const snapshot = await getDocs(q);
+  const snapshotApproved = await getDocs(qApproved);
+  if (!snapshotApproved.empty) return mapRoom(snapshotApproved.docs[0]);
 
-  if (snapshot.empty) return null;
+  // If not found and user is logged in, try fetching their own room with this slug
+  if (currentUserId) {
+    const qOwner = query(
+      roomsRef,
+      where("slug", "==", slug),
+      where("ownerId", "==", currentUserId),
+      limit(1)
+    );
+    const snapshotOwner = await getDocs(qOwner);
+    if (!snapshotOwner.empty) return mapRoom(snapshotOwner.docs[0]);
+  }
 
-  const doc = snapshot.docs[0];
-  return {
-    id: doc.id,
-    ...doc.data(),
-    createdAt: doc.data().createdAt?.toDate?.()?.toISOString() || new Date().toISOString(),
-    updatedAt: doc.data().updatedAt?.toDate?.()?.toISOString() || new Date().toISOString(),
-  } as Room;
+  // If still not found, try admin (last resort)
+  const qAll = query(roomsRef, where("slug", "==", slug), limit(1));
+  try {
+    const snapshotAll = await getDocs(qAll);
+    if (!snapshotAll.empty) return mapRoom(snapshotAll.docs[0]);
+  } catch {
+    // Admin check failed or not an admin
+  }
+
+  return null;
 }
 
 // Get single room by ID

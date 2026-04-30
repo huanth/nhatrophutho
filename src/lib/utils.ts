@@ -64,8 +64,11 @@ export function generateSlug(title: string): string {
 }
 
 // Format date
-export function formatDate(dateString: string): string {
+export function formatDate(dateString: string | undefined | null): string {
+  if (!dateString) return "Chưa cập nhật";
   const date = new Date(dateString);
+  if (isNaN(date.getTime())) return "Ngày không hợp lệ";
+  
   return new Intl.DateTimeFormat("vi-VN", {
     day: "2-digit",
     month: "2-digit",

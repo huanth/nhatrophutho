@@ -99,9 +99,22 @@ export async function getUserProfile(uid: string): Promise<UserProfile | null> {
   const profileRef = doc(db, "users", uid);
   const profileSnap = await getDoc(profileRef);
   if (profileSnap.exists()) {
-    return profileSnap.data() as UserProfile;
+    const data = profileSnap.data();
+    return {
+      ...data,
+      createdAt: data.createdAt?.toDate?.()?.toISOString() || new Date().toISOString(),
+    } as UserProfile;
   }
   return null;
+}
+
+// Update user profile
+export async function updateUserProfile(uid: string, data: Partial<UserProfile>): Promise<void> {
+  const profileRef = doc(db, "users", uid);
+  await updateDoc(profileRef, {
+    ...data,
+    updatedAt: serverTimestamp(),
+  });
 }
 
 // Auth state listener
