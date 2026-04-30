@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { Button, Card, Chip, Divider } from "@heroui/react";
+import { Button, Card, Chip } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import { getPendingRooms, setRoomStatus } from "@/lib/firebase/firestore";
 import { ROOM_TYPE_LABELS, type Room } from "@/types/room";
@@ -67,7 +67,7 @@ export default function ReviewPage() {
                   <div className="flex-1 min-w-0">
                     <div className="flex items-start justify-between gap-2 mb-1">
                       <h3 className="font-semibold text-slate-900 dark:text-white line-clamp-1">{room.title}</h3>
-                      <Chip size="sm" variant="flat" color="warning">Chờ duyệt</Chip>
+                      <Chip size="sm" variant="secondary" color="warning">Chờ duyệt</Chip>
                     </div>
                     <p className="price-tag text-lg mb-1">{formatPrice(room.price)}</p>
                     <div className="flex flex-wrap gap-3 text-sm text-slate-500 mb-2">
@@ -79,16 +79,23 @@ export default function ReviewPage() {
                     <p className="text-sm text-slate-600 dark:text-slate-400 line-clamp-2 mb-3">{room.description}</p>
 
                     <div className="flex gap-2">
-                      <Button color="success" size="sm" variant="flat"
-                        isLoading={actionLoading === room.id}
+                      <Button
+                        size="sm"
+                        variant="secondary"
+                        isPending={actionLoading === room.id}
                         onPress={() => handleAction(room.id, "approved")}
-                        startContent={<Icon icon="mdi:check" />}>
+                        className="bg-emerald-100 text-emerald-700 hover:bg-emerald-200"
+                      >
+                        <Icon icon="mdi:check" />
                         Duyệt
                       </Button>
-                      <Button color="danger" size="sm" variant="flat"
-                        isLoading={actionLoading === room.id}
+                      <Button
+                        size="sm"
+                        variant="danger-soft"
+                        isPending={actionLoading === room.id}
                         onPress={() => handleAction(room.id, "rejected")}
-                        startContent={<Icon icon="mdi:close" />}>
+                      >
+                        <Icon icon="mdi:close" />
                         Từ chối
                       </Button>
                     </div>

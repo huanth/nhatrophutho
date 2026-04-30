@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "@heroui/styles";
 
 @theme {
   /* Brand Colors - NhaTroPhúThọ */
@@ -56,12 +57,14 @@ html {
 body {
   font-family: var(--font-sans);
   background-color: var(--color-surface-light);
+  color: #0f172a;
   min-height: 100dvh;
 }
 
 /* Dark mode */
 .dark body {
   background-color: #0f172a;
+  color: #f8fafc;
 }
 
 /* Scrollbar */
@@ -122,4 +125,120 @@ body {
 }
 .dark .price-tag {
   color: oklch(0.75 0.16 80);
+}
+
+/* Shared app controls */
+.form-control {
+  width: 100%;
+  min-height: 2.5rem;
+  border-radius: 0.75rem;
+  border: 1px solid #cbd5e1;
+  background: #fff;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: #0f172a;
+  outline: none;
+  transition: border-color 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
+}
+
+.form-control:focus {
+  border-color: #0ea5e9;
+  box-shadow: 0 0 0 3px rgb(14 165 233 / 0.16);
+}
+
+.form-control:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+  background: #f8fafc;
+}
+
+.dark .form-control {
+  border-color: #334155;
+  background: #0f172a;
+  color: #f8fafc;
+}
+
+.dark .form-control:disabled {
+  background: #1e293b;
+}
+
+.button {
+  gap: 0.5rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.button--primary {
+  background: linear-gradient(135deg, #0ea5e9, #10b981);
+  color: #fff;
+  box-shadow: 0 10px 24px rgb(14 165 233 / 0.22);
+}
+
+.button--primary:hover {
+  filter: brightness(1.03);
+}
+
+.button--secondary {
+  border: 1px solid #bae6fd;
+  background: #f0f9ff;
+  color: #0369a1;
+}
+
+.button--secondary:hover {
+  background: #e0f2fe;
+}
+
+.dark .button--secondary {
+  border-color: rgb(14 165 233 / 0.28);
+  background: rgb(8 47 73 / 0.55);
+  color: #7dd3fc;
+}
+
+.button--outline {
+  border: 1px solid #cbd5e1;
+  background: transparent;
+  color: #334155;
+}
+
+.button--ghost {
+  background: transparent;
+  color: #475569;
+}
+
+.button--ghost:hover,
+.button--outline:hover {
+  background: #f1f5f9;
+}
+
+.dark .button--outline {
+  border-color: #334155;
+  color: #cbd5e1;
+}
+
+.dark .button--ghost {
+  color: #cbd5e1;
+}
+
+.dark .button--ghost:hover,
+.dark .button--outline:hover {
+  background: #1e293b;
+}
+
+.button--danger-soft {
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+.button--danger-soft:hover {
+  background: #fee2e2;
+}
+
+.button--full-width {
+  width: 100%;
+}
+
+.card {
+  border-radius: 1rem;
 }

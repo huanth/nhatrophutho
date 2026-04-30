@@ -9,9 +9,18 @@ import {
   updateProfile,
   type User,
 } from "firebase/auth";
-import { doc, setDoc, getDoc, serverTimestamp } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  limit,
+  query,
+  serverTimestamp,
+  setDoc,
+} from "firebase/firestore";
 import { auth, db } from "./config";
-import type { UserProfile } from "@/types/user";
+import type { UserProfile, UserRole } from "@/types/user";
 
 const googleProvider = new GoogleAuthProvider();
 
@@ -26,7 +35,7 @@ export async function signUpWithEmail(
   email: string,
   password: string,
   displayName: string,
-  role: "user" | "landlord" = "user"
+  role: Exclude<UserRole, "admin"> = "user"
 ) {
   const result = await createUserWithEmailAndPassword(auth, email, password);
   await updateProfile(result.user, { displayName });
@@ -60,20 +69,29 @@ export async function signOut() {
 async function createUserProfile(
   user: User,
   displayName: string,
-  role: "user" | "landlord"
+  role: Exclude<UserRole, "admin">
 ) {
+  const isFirstAccount = await isFirstUserAccount();
+  const assignedRole: UserRole = isFirstAccount ? "admin" : role;
+
   const profile: Omit<UserProfile, "createdAt"> & { createdAt: ReturnType<typeof serverTimestamp> } = {
     uid: user.uid,
     email: user.email || "",
     displayName,
     phone: "",
-    role,
+    role: assignedRole,
     avatarUrl: user.photoURL || "",
     createdAt: serverTimestamp(),
     roomCount: 0,
   };
 
   await setDoc(doc(db, "users", user.uid), profile);
+}
+
+async function isFirstUserAccount() {
+  const usersQuery = query(collection(db, "users"), limit(1));
+  const snapshot = await getDocs(usersQuery);
+  return snapshot.empty;
 }
 
 // Get user profile

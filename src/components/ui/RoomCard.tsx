@@ -40,7 +40,7 @@ export default function RoomCard({ room }: RoomCardProps) {
           {/* Room type badge */}
           <Chip
             size="sm"
-            variant="flat"
+            variant="secondary"
             className="absolute top-3 left-3 bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm text-xs font-medium"
           >
             {ROOM_TYPE_LABELS[room.roomType]}
@@ -66,11 +66,10 @@ export default function RoomCard({ room }: RoomCardProps) {
             {room.title}
           </h3>
 
-          {/* Location */}
           <div className="flex items-center gap-1 text-xs text-slate-500 dark:text-slate-400">
             <Icon icon="mdi:map-marker" className="text-sky-500 flex-shrink-0" />
             <span className="truncate">
-              {room.wardName}, {room.districtName}
+              {room.wardName}{room.districtName ? `, ${room.districtName}` : ""}
             </span>
           </div>
 

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { Button, Chip, Divider, Avatar } from "@heroui/react";
+import { Button, Chip, Avatar } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import Navbar from "@/components/ui/Navbar";
 import Footer from "@/components/ui/Footer";
@@ -24,7 +24,9 @@ export default function RoomDetailPage() {
       try {
         const data = await getRoomBySlug(slug);
         setRoom(data);
-        if (data) await incrementViewCount(data.id);
+        if (data) {
+          void incrementViewCount(data.id);
+        }
       } catch (e) {
         console.error(e);
       } finally {
@@ -52,7 +54,7 @@ export default function RoomDetailPage() {
           <div className="text-center">
             <Icon icon="mdi:home-off" className="text-6xl text-slate-300 mx-auto mb-4" />
             <h1 className="text-2xl font-bold mb-2">Không tìm thấy phòng trọ</h1>
-            <Button as={Link} href="/tim-phong" color="primary">Quay lại</Button>
+            <Button as={Link} href="/tim-phong">Quay lại</Button>
           </div>
         </main>
         <Footer />
@@ -99,7 +101,7 @@ export default function RoomDetailPage() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 pb-12">
             <div className="lg:col-span-2 space-y-6">
               <div>
-                <Chip size="sm" variant="flat" color="primary" className="mb-2">{ROOM_TYPE_LABELS[room.roomType]}</Chip>
+                <Chip size="sm" variant="secondary" color="accent" className="mb-2">{ROOM_TYPE_LABELS[room.roomType]}</Chip>
                 <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mb-2">{room.title}</h1>
                 <p className="price-tag text-2xl">{formatPrice(room.price)}</p>
               </div>
@@ -119,13 +121,13 @@ export default function RoomDetailPage() {
                 </div>
               </div>
 
-              <Divider />
+              <hr className="border-slate-200 dark:border-slate-700" />
               <div>
                 <h2 className="text-lg font-semibold mb-2">📍 Địa chỉ</h2>
                 <p className="text-slate-600 dark:text-slate-400">{room.address}, {room.wardName}, {room.districtName}, Phú Thọ</p>
               </div>
 
-              <Divider />
+              <hr className="border-slate-200 dark:border-slate-700" />
               <div>
                 <h2 className="text-lg font-semibold mb-2">📝 Mô tả</h2>
                 <div className="text-slate-600 dark:text-slate-400 whitespace-pre-line leading-relaxed">{room.description}</div>
@@ -133,7 +135,7 @@ export default function RoomDetailPage() {
 
               {roomAmenities.length > 0 && (
                 <>
-                  <Divider />
+                  <hr className="border-slate-200 dark:border-slate-700" />
                   <div>
                     <h2 className="text-lg font-semibold mb-3">⭐ Tiện ích</h2>
                     <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
@@ -154,21 +156,23 @@ export default function RoomDetailPage() {
               <div className="sticky top-20 bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 shadow-lg">
                 <h3 className="font-semibold mb-4">Liên hệ chủ trọ</h3>
                 <div className="flex items-center gap-3 mb-4">
-                  <Avatar name={room.ownerName?.charAt(0)} size="md" color="primary" />
+                  <Avatar name={room.ownerName?.charAt(0)} size="md" color="accent" />
                   <div>
                     <p className="font-semibold">{room.ownerName}</p>
                     <p className="text-xs text-slate-500">Chủ nhà trọ</p>
                   </div>
                 </div>
                 <div className="space-y-3">
-                  <Button fullWidth color="primary" size="lg" startContent={<Icon icon="mdi:phone" />} as="a" href={`tel:${room.ownerPhone}`}>
+                  <Button fullWidth size="lg" as="a" href={`tel:${room.ownerPhone}`}>
+                    <Icon icon="mdi:phone" />
                     {room.ownerPhone || "Gọi điện"}
                   </Button>
-                  <Button fullWidth variant="flat" color="success" size="lg" startContent={<Icon icon="simple-icons:zalo" />} as="a" href={`https://zalo.me/${room.ownerPhone}`} target="_blank">
+                  <Button fullWidth variant="secondary" size="lg" as="a" href={`https://zalo.me/${room.ownerPhone}`} target="_blank">
+                    <Icon icon="simple-icons:zalo" />
                     Nhắn Zalo
                   </Button>
                 </div>
-                <Divider className="my-4" />
+                <hr className="my-4 border-slate-200 dark:border-slate-700" />
                 <div className="space-y-2 text-sm text-slate-500">
                   <div className="flex justify-between"><span>Ngày đăng</span><span className="font-medium text-slate-700 dark:text-slate-300">{formatDate(room.createdAt)}</span></div>
                   <div className="flex justify-between"><span>Mã tin</span><span className="font-medium text-slate-700 dark:text-slate-300">{room.id.slice(0, 8)}</span></div>

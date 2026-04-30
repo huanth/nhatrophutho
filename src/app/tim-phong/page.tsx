@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import Navbar from "@/components/ui/Navbar";
@@ -9,19 +10,69 @@ import RoomCard, { RoomCardSkeleton } from "@/components/ui/RoomCard";
 import SearchFilterForm from "@/components/forms/SearchFilterForm";
 import { useFilterStore } from "@/stores/filterStore";
 import { getRooms } from "@/lib/firebase/firestore";
-import type { Room } from "@/types/room";
+import { PRICE_RANGES } from "@/types/room";
+import type { Room, RoomType } from "@/types/room";
 import type { QueryDocumentSnapshot, DocumentData } from "firebase/firestore";
 
 export default function TimPhongPage() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const [rooms, setRooms] = useState<Room[]>([]);
   const [loading, setLoading] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
   const [lastDoc, setLastDoc] = useState<QueryDocumentSnapshot<DocumentData> | null>(null);
   const [hasMore, setHasMore] = useState(true);
-  const { filters } = useFilterStore();
+  const { filters, setFilter, setFilters } = useFilterStore();
   const [isOpen, setIsOpen] = useState(false);
   const onOpen = () => setIsOpen(true);
   const onClose = () => setIsOpen(false);
+  const initializedFromUrl = useRef(false);
+
+  // Sync URL params -> filter store on mount
+  useEffect(() => {
+    const ward = searchParams.get("ward");
+    const roomType = searchParams.get("roomType") as RoomType | null;
+    const priceRange = searchParams.get("price");
+
+    const newFilters: Record<string, any> = {};
+
+    if (ward) newFilters.ward = ward;
+    if (roomType) newFilters.roomType = roomType;
+    if (priceRange) {
+      const idx = parseInt(priceRange);
+      if (!isNaN(idx) && PRICE_RANGES[idx]) {
+        newFilters.minPrice = PRICE_RANGES[idx].min;
+        newFilters.maxPrice = PRICE_RANGES[idx].max;
+      }
+    }
+
+    if (Object.keys(newFilters).length > 0) {
+      setFilters(newFilters);
+    }
+    initializedFromUrl.current = true;
+  }, []); // only on mount
+
+  // Sync filter store -> URL when filters change
+  useEffect(() => {
+    if (!initializedFromUrl.current) return;
+
+    const params = new URLSearchParams();
+
+    if (filters.ward) params.set("ward", filters.ward);
+    if (filters.roomType) params.set("roomType", filters.roomType);
+    if (filters.minPrice !== undefined && filters.maxPrice !== undefined) {
+      const idx = PRICE_RANGES.findIndex(
+        (r) => r.min === filters.minPrice && r.max === filters.maxPrice
+      );
+      if (idx >= 0) params.set("price", String(idx));
+    }
+
+    const newUrl = params.toString()
+      ? `/tim-phong?${params.toString()}`
+      : "/tim-phong";
+
+    router.replace(newUrl, { scroll: false });
+  }, [filters, router]);
 
   const loadRooms = useCallback(async (reset = false) => {
     try {
@@ -51,6 +102,7 @@ export default function TimPhongPage() {
   }, [filters, lastDoc]);
 
   useEffect(() => {
+    if (!initializedFromUrl.current) return;
     loadRooms(true);
   }, [filters]);
 
@@ -72,7 +124,7 @@ export default function TimPhongPage() {
             </h1>
             <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
               {rooms.length > 0
-                ? `Tìm thấy ${rooms.length}+ phòng trọ tại Phú Thọ`
+                ? `Đang hiển thị ${rooms.length} phòng trọ tại Phú Thọ`
                 : "Tìm kiếm phòng trọ phù hợp với bạn"}
             </p>
           </div>
@@ -80,10 +132,10 @@ export default function TimPhongPage() {
           {/* Mobile filter button */}
           <Button
             className="lg:hidden"
-            variant="flat"
-            startContent={<Icon icon="mdi:filter-variant" />}
+            variant="secondary"
             onPress={onOpen}
           >
+            <Icon icon="mdi:filter-variant" />
             Bộ lọc
           </Button>
         </div>
@@ -121,13 +173,12 @@ export default function TimPhongPage() {
                   thêm kết quả.
                 </p>
                 <Button
-                  variant="flat"
-                  color="primary"
+                  variant="secondary"
                   onPress={() => {
                     useFilterStore.getState().resetFilters();
                   }}
-                  startContent={<Icon icon="mdi:refresh" />}
                 >
+                  <Icon icon="mdi:refresh" />
                   Xóa bộ lọc
                 </Button>
               </div>
@@ -143,12 +194,11 @@ export default function TimPhongPage() {
                 {hasMore && (
                   <div className="flex justify-center mt-8">
                     <Button
-                      variant="flat"
-                      color="primary"
-                      isLoading={loadingMore}
+                      variant="secondary"
+                      isPending={loadingMore}
                       onPress={() => loadRooms(false)}
-                      startContent={!loadingMore && <Icon icon="mdi:plus" />}
                     >
+                      {!loadingMore && <Icon icon="mdi:plus" />}
                       Xem thêm
                     </Button>
                   </div>

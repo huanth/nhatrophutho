@@ -9,7 +9,7 @@ import {
   type ReactNode,
 } from "react";
 import { type User } from "firebase/auth";
-import { onAuthChange, getUserProfile } from "@/lib/firebase/auth";
+import { getUserProfile, onAuthChange, signOut } from "@/lib/firebase/auth";
 import type { UserProfile } from "@/types/user";
 
 interface AuthContextValue {
@@ -30,6 +30,27 @@ const AuthContext = createContext<AuthContextValue>({
   refreshProfile: async () => {},
 });
 
+const PROFILE_RETRY_DELAYS = [0, 300, 700];
+
+function wait(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function getUserProfileWithRetry(uid: string) {
+  for (const delay of PROFILE_RETRY_DELAYS) {
+    if (delay > 0) {
+      await wait(delay);
+    }
+
+    const profile = await getUserProfile(uid);
+    if (profile) {
+      return profile;
+    }
+  }
+
+  return null;
+}
+
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [profile, setProfile] = useState<UserProfile | null>(null);
@@ -37,21 +58,49 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const refreshProfile = useCallback(async () => {
     if (user) {
-      const p = await getUserProfile(user.uid);
-      setProfile(p);
+      const p = await getUserProfileWithRetry(user.uid);
+      if (p) {
+        setProfile(p);
+        return;
+      }
+
+      await signOut();
+      setUser(null);
+      setProfile(null);
     }
   }, [user]);
 
   useEffect(() => {
     const unsubscribe = onAuthChange(async (firebaseUser) => {
-      setUser(firebaseUser);
-      if (firebaseUser) {
-        const p = await getUserProfile(firebaseUser.uid);
-        setProfile(p);
-      } else {
+      setLoading(true);
+
+      if (!firebaseUser) {
+        setUser(null);
         setProfile(null);
+        setLoading(false);
+        return;
       }
-      setLoading(false);
+
+      try {
+        await firebaseUser.reload();
+        const p = await getUserProfileWithRetry(firebaseUser.uid);
+
+        if (!p) {
+          await signOut();
+          setUser(null);
+          setProfile(null);
+          return;
+        }
+
+        setUser(firebaseUser);
+        setProfile(p);
+      } catch {
+        await signOut();
+        setUser(null);
+        setProfile(null);
+      } finally {
+        setLoading(false);
+      }
     });
 
     return () => unsubscribe();
