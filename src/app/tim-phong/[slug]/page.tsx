@@ -56,7 +56,9 @@ export default function RoomDetailPage() {
           <div className="text-center">
             <Icon icon="mdi:home-off" className="text-6xl text-slate-300 mx-auto mb-4" />
             <h1 className="text-2xl font-bold mb-2">Không tìm thấy phòng trọ</h1>
-            <Button as={Link} href="/tim-phong">Quay lại</Button>
+            <Link href="/tim-phong">
+              <Button>Quay lại</Button>
+            </Link>
           </div>
         </main>
         <Footer />
@@ -165,14 +167,18 @@ export default function RoomDetailPage() {
                   </div>
                 </div>
                 <div className="space-y-3">
-                  <Button fullWidth size="lg" as="a" href={`tel:${room.ownerPhone}`}>
-                    <Icon icon="mdi:phone" />
-                    {room.ownerPhone || "Gọi điện"}
-                  </Button>
-                  <Button fullWidth variant="secondary" size="lg" as="a" href={`https://zalo.me/${room.ownerPhone}`} target="_blank">
-                    <Icon icon="simple-icons:zalo" />
-                    Nhắn Zalo
-                  </Button>
+                  <a href={`tel:${room.ownerPhone}`} className="w-full">
+                    <Button fullWidth size="lg">
+                      <Icon icon="mdi:phone" />
+                      {room.ownerPhone || "Gọi điện"}
+                    </Button>
+                  </a>
+                  <a href={`https://zalo.me/${room.ownerPhone}`} target="_blank" className="w-full">
+                    <Button fullWidth variant="secondary" size="lg">
+                      <Icon icon="simple-icons:zalo" />
+                      Nhắn Zalo
+                    </Button>
+                  </a>
                 </div>
                 <hr className="my-4 border-slate-200 dark:border-slate-700" />
                 <div className="space-y-2 text-sm text-slate-500">

@@ -97,8 +97,12 @@ export default function MyRoomsPage() {
                     <td className="px-4 py-3"><span className="text-sm text-slate-500">{formatDate(room.createdAt)}</span></td>
                     <td className="px-4 py-3">
                       <div className="flex gap-1">
-                        <Button as={Link} href={`/tim-phong/${room.slug}`} size="sm" variant="ghost" isIconOnly title="Xem bài đăng"><Icon icon="mdi:eye" /></Button>
-                        <Button as={Link} href={`/quan-ly/sua-bai/${room.id}`} size="sm" variant="ghost" isIconOnly title="Chỉnh sửa"><Icon icon="mdi:pencil" /></Button>
+                        <Link href={`/tim-phong/${room.slug}`}>
+                          <Button size="sm" variant="ghost" isIconOnly title="Xem bài đăng"><Icon icon="mdi:eye" /></Button>
+                        </Link>
+                        <Link href={`/quan-ly/sua-bai/${room.id}`}>
+                          <Button size="sm" variant="ghost" isIconOnly title="Chỉnh sửa"><Icon icon="mdi:pencil" /></Button>
+                        </Link>
                         <Button size="sm" variant="danger-soft" isIconOnly onPress={() => handleDelete(room.id)} title="Xóa bài"><Icon icon="mdi:delete" /></Button>
                       </div>
                     </td>

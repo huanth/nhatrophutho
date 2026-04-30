@@ -167,15 +167,15 @@ export default function HomePage() {
                   Các phòng trọ vừa được đăng gần đây
                 </p>
               </div>
-              <Button
-                as={Link}
-                href="/tim-phong"
-                variant="flat"
-                color="primary"
-                endContent={<Icon icon="mdi:arrow-right" />}
-              >
-                Xem tất cả
-              </Button>
+              <Link href="/tim-phong">
+                <Button
+                  variant="flat"
+                  color="primary"
+                  endContent={<Icon icon="mdi:arrow-right" />}
+                >
+                  Xem tất cả
+                </Button>
+              </Link>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -260,24 +260,24 @@ export default function HomePage() {
                     hàng nghìn người đang tìm kiếm phòng trọ tại Phú Thọ.
                   </p>
                   <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
-                    <Button
-                      as={Link}
-                      href="/dang-ky"
-                      size="lg"
-                      className="bg-white text-sky-700 font-bold shadow-xl hover:shadow-2xl transition-shadow"
-                      startContent={<Icon icon="mdi:pencil-plus" />}
-                    >
-                      Đăng phòng miễn phí
-                    </Button>
-                    <Button
-                      as={Link}
-                      href="/ve-chung-toi"
-                      size="lg"
-                      variant="bordered"
-                      className="text-white border-white/50 hover:bg-white/10"
-                    >
-                      Tìm hiểu thêm
-                    </Button>
+                    <Link href="/dang-ky">
+                      <Button
+                        size="lg"
+                        className="bg-white text-sky-700 font-bold shadow-xl hover:shadow-2xl transition-shadow"
+                        startContent={<Icon icon="mdi:pencil-plus" />}
+                      >
+                        Đăng phòng miễn phí
+                      </Button>
+                    </Link>
+                    <Link href="/ve-chung-toi">
+                      <Button
+                        size="lg"
+                        variant="bordered"
+                        className="text-white border-white/50 hover:bg-white/10"
+                      >
+                        Tìm hiểu thêm
+                      </Button>
+                    </Link>
                   </div>
                 </div>
                 <div className="hidden lg:flex items-center justify-center">

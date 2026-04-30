@@ -87,7 +87,9 @@ export default function ProfilePage() {
         <main className="flex-1 text-center py-20">
           <Icon icon="mdi:account-off" className="text-6xl text-slate-300 mx-auto mb-4" />
           <h1 className="text-2xl font-bold mb-4">Vui lòng đăng nhập</h1>
-          <Button as={Link} href="/dang-nhap">Đăng nhập ngay</Button>
+          <Link href="/dang-nhap">
+            <Button>Đăng nhập ngay</Button>
+          </Link>
         </main>
         <Footer />
       </div>
@@ -195,9 +197,11 @@ export default function ProfilePage() {
                       <p className="text-sm text-sky-700/70 dark:text-sky-300/70 mb-4">
                         Bạn đang có {actualRoomCount !== null ? actualRoomCount : "..."} bài đăng trên hệ thống. Hãy tiếp tục chia sẻ các phòng trọ chất lượng nhé!
                       </p>
-                      <Button as={Link} href="/quan-ly" className="font-semibold shadow-md">
-                        Đi tới Quản lý
-                      </Button>
+                      <Link href="/quan-ly">
+                        <Button className="font-semibold shadow-md">
+                          Đi tới Quản lý
+                        </Button>
+                      </Link>
                     </div>
                   </div>
                 </Card>
@@ -233,9 +237,11 @@ export default function ProfilePage() {
                       <p className="text-sm text-amber-700/70 dark:text-amber-300/70 mb-4">
                         Bạn có quyền truy cập vào bảng điều khiển quản trị để duyệt bài đăng và quản lý người dùng.
                       </p>
-                      <Button as={Link} href="/admin" variant="secondary" className="font-semibold shadow-md">
-                        Bảng điều khiển Admin
-                      </Button>
+                      <Link href="/admin">
+                        <Button variant="secondary" className="font-semibold shadow-md">
+                          Bảng điều khiển Admin
+                        </Button>
+                      </Link>
                     </div>
                   </div>
                 </Card>
