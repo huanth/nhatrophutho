@@ -5,7 +5,7 @@ import { useAuth } from "@/lib/hooks/useAuth";
 import { 
   Card, Avatar, Button, Chip, Modal, 
   ModalHeader, ModalBody, ModalFooter,
-  useDisclosure, Input, CardContent, ModalContainer, Select, SelectItem
+  Input, CardContent, ModalContainer, RadioGroup, Radio
 } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import { formatDate } from "@/lib/utils";
@@ -274,18 +274,17 @@ export default function ProfilePage() {
               />
               
               {!isAdmin && (
-                <Select
-                  label="Vai trò"
-                  variant="bordered"
-                  selectedKeys={[editForm.role]}
-                  onSelectionChange={(keys) => {
-                    const selected = Array.from(keys)[0];
-                    if (selected) setEditForm(prev => ({ ...prev, role: selected as any }));
-                  }}
-                >
-                  <SelectItem key="user" value="user">Người tìm trọ</SelectItem>
-                  <SelectItem key="landlord" value="landlord">Chủ nhà trọ</SelectItem>
-                </Select>
+                <div className="space-y-2 pt-2">
+                  <p className="text-sm font-medium text-slate-500">Vai trò</p>
+                  <RadioGroup
+                    orientation="horizontal"
+                    value={editForm.role}
+                    onValueChange={(val) => setEditForm(prev => ({ ...prev, role: val as any }))}
+                  >
+                    <Radio value="user">Người tìm trọ</Radio>
+                    <Radio value="landlord">Chủ nhà trọ</Radio>
+                  </RadioGroup>
+                </div>
               )}
             </div>
           </ModalBody>
