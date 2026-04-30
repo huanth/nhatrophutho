@@ -107,12 +107,12 @@ export default function MyRoomsPage() {
                     <td className="px-4 py-3">
                       <div className="flex gap-1">
                         <Link href={`/tim-phong/${room.slug}`}>
-                          <Button size="sm" variant="ghost" isIconOnly title="Xem bài đăng"><Icon icon="mdi:eye" /></Button>
+                          <Button size="sm" variant="ghost" isIconOnly aria-label="Xem bài đăng"><Icon icon="mdi:eye" /></Button>
                         </Link>
                         <Link href={`/quan-ly/sua-bai/${room.id}`}>
-                          <Button size="sm" variant="ghost" isIconOnly title="Chỉnh sửa"><Icon icon="mdi:pencil" /></Button>
+                          <Button size="sm" variant="ghost" isIconOnly aria-label="Chỉnh sửa"><Icon icon="mdi:pencil" /></Button>
                         </Link>
-                        <Button size="sm" variant="danger-soft" isIconOnly onPress={() => handleDelete(room.id)} title="Xóa bài"><Icon icon="mdi:delete" /></Button>
+                        <Button size="sm" variant="danger-soft" isIconOnly onPress={() => handleDelete(room.id)} aria-label="Xóa bài"><Icon icon="mdi:delete" /></Button>
                       </div>
                     </td>
                   </tr>

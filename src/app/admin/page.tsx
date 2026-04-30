@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Card, Button, Skeleton } from "@heroui/react";
+import { Card, CardContent, Button, Skeleton } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "@/lib/firebase/config";
@@ -50,7 +50,7 @@ export default function AdminDashboard() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {cards.map((c) => (
           <Card key={c.label} className="border border-slate-200 dark:border-slate-700">
-            <Card.Content className="p-5 flex items-center gap-4">
+            <CardContent className="p-5 flex items-center gap-4">
               <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${c.color} ${c.shadow} shadow-lg flex items-center justify-center`}>
                 <Icon icon={c.icon} className="text-white text-2xl" />
               </div>
@@ -58,11 +58,10 @@ export default function AdminDashboard() {
                 {loading ? <Skeleton className="h-8 w-16 rounded-lg" /> : <p className="text-2xl font-bold text-slate-900 dark:text-white">{c.value}</p>}
                 <p className="text-xs text-slate-500">{c.label}</p>
               </div>
-            </Card.Content>
+            </CardContent>
           </Card>
         ))}
       </div>
     </div>
   );
-}
 

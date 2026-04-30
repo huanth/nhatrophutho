@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { Button, Card, Chip, Skeleton } from "@heroui/react";
+import { Button, Card, CardContent, Chip, Skeleton } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import { getPendingRooms, setRoomStatus } from "@/lib/firebase/firestore";
 import { ROOM_TYPE_LABELS, type Room } from "@/types/room";
@@ -56,7 +56,7 @@ export default function ReviewPage() {
         <div className="space-y-4">
           {rooms.map((room) => (
             <Card key={room.id} className="border border-slate-200 dark:border-slate-700">
-              <Card.Content className="p-5">
+              <CardContent className="p-5">
                 <div className="flex flex-col sm:flex-row gap-4">
                   {/* Thumbnail */}
                   <div className="relative w-full sm:w-40 h-28 rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-800 flex-shrink-0">

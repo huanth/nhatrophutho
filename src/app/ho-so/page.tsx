@@ -295,7 +295,7 @@ export default function ProfilePage() {
                   <RadioGroup
                     orientation="horizontal"
                     value={editForm.role}
-                    onValueChange={(val) => setEditForm(prev => ({ ...prev, role: val as any }))}
+                    onChange={(val) => setEditForm(prev => ({ ...prev, role: val as any }))}
                   >
                     <Radio value="user">Người tìm trọ</Radio>
                     <Radio value="landlord">Chủ nhà trọ</Radio>
