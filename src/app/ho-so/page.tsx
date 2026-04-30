@@ -111,12 +111,10 @@ export default function ProfilePage() {
             <div className="md:col-span-1 space-y-6">
               <Card className="p-6 border border-slate-200 dark:border-slate-700 text-center">
                 <div className="relative mx-auto w-24 h-24 mb-4">
-                  <Avatar
-                    src={profile.avatarUrl || undefined}
-                    name={profile.displayName}
-                    showFallback
-                    className="w-24 h-24 text-2xl font-bold border-4 border-sky-100 dark:border-sky-900 shadow-xl"
-                  />
+                  <Avatar className="w-24 h-24 text-2xl font-bold border-4 border-sky-100 dark:border-sky-900 shadow-xl">
+                    <Avatar.Image src={profile.avatarUrl || undefined} alt={profile.displayName} />
+                    <Avatar.Fallback>{profile.displayName?.charAt(0)}</Avatar.Fallback>
+                  </Avatar>
                   {isAdmin && (
                     <div className="absolute -bottom-1 -right-1 bg-amber-500 text-white p-1.5 rounded-full border-2 border-white dark:border-slate-800 shadow-md">
                       <Icon icon="mdi:shield-crown" className="text-sm" />

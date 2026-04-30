@@ -53,12 +53,10 @@ export default function ManageUsersPage() {
                   <tr key={u.uid} className="hover:bg-slate-50/70 dark:hover:bg-slate-900/30">
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-3">
-                        <Avatar 
-                          name={u.displayName?.charAt(0)} 
-                          size="sm" 
-                          src={u.avatarUrl || undefined} 
-                          showFallback
-                        />
+                        <Avatar size="sm">
+                          <Avatar.Image src={u.avatarUrl || undefined} alt={u.displayName} />
+                          <Avatar.Fallback>{u.displayName?.charAt(0)}</Avatar.Fallback>
+                        </Avatar>
                         <span className="font-medium text-sm">{u.displayName}</span>
                       </div>
                     </td>

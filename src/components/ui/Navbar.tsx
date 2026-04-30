@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Switch, Skeleton } from "@heroui/react";
+import { Switch, Skeleton, Avatar } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import { useTheme } from "next-themes";
 import { signOut } from "@/lib/firebase/auth";
@@ -255,27 +255,17 @@ export default function Navbar() {
                 <div className="relative" ref={accountMenuRef}>
                   <button
                     type="button"
-                    className="relative flex h-9 w-9 items-center justify-center overflow-visible rounded-full border-2 border-sky-200 bg-sky-50 text-sm font-bold text-sky-700 transition hover:ring-2 hover:ring-sky-500/20 dark:border-sky-900 dark:bg-sky-950 dark:text-sky-200"
+                    className="relative transition hover:ring-2 hover:ring-sky-500/20 rounded-full"
                     onClick={() => setIsAccountMenuOpen((value) => !value)}
                     aria-label="Mở menu tài khoản"
                     aria-expanded={isAccountMenuOpen}
                   >
-                    <div className="h-full w-full rounded-full overflow-hidden flex items-center justify-center">
-                      {canShowAvatarImage ? (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img
-                          src={avatarUrl}
-                          alt={displayName}
-                          className="h-full w-full object-cover"
-                          referrerPolicy="no-referrer"
-                          onError={() => setAvatarImageFailed(true)}
-                        />
-                      ) : (
-                        avatarLetter
-                      )}
-                    </div>
+                    <Avatar className="h-9 w-9 border-2 border-sky-200 dark:border-sky-900 bg-sky-50 text-sm font-bold text-sky-700 dark:bg-sky-950 dark:text-sky-200">
+                      <Avatar.Image src={avatarUrl} alt={displayName} />
+                      <Avatar.Fallback>{avatarLetter}</Avatar.Fallback>
+                    </Avatar>
                     {isAdmin && (
-                      <span className="absolute -bottom-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-amber-500 border-2 border-white dark:border-slate-900">
+                      <span className="absolute -bottom-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-amber-500 border-2 border-white dark:border-slate-900 z-10">
                         <Icon icon="mdi:shield-crown" className="text-[8px] text-white" />
                       </span>
                     )}

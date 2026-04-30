@@ -165,7 +165,11 @@ export default function RoomDetailPage() {
               <div className="sticky top-20 bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 shadow-lg">
                 <h3 className="font-semibold mb-4">Liên hệ chủ trọ</h3>
                 <div className="flex items-center gap-3 mb-4">
-                  <Avatar name={room.ownerName?.charAt(0)} size="md" color="accent" />
+                  <Avatar size="md">
+                    <Avatar.Fallback className="bg-sky-500 text-white font-bold">
+                      {room.ownerName?.charAt(0)}
+                    </Avatar.Fallback>
+                  </Avatar>
                   <div>
                     <p className="font-semibold">{room.ownerName}</p>
                     <p className="text-xs text-slate-500">Chủ nhà trọ</p>
