@@ -107,7 +107,7 @@ export default function ProfilePage() {
               <Card className="p-6 border border-slate-200 dark:border-slate-700 text-center">
                 <div className="relative mx-auto w-24 h-24 mb-4">
                   <Avatar
-                    src={profile.avatarUrl}
+                    src={profile.avatarUrl || undefined}
                     name={profile.displayName}
                     className="w-24 h-24 text-2xl font-bold border-4 border-sky-100 dark:border-sky-900 shadow-xl"
                   />
