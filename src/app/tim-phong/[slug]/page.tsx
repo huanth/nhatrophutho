@@ -177,15 +177,9 @@ export default function RoomDetailPage() {
                 </div>
                 <div className="space-y-3">
                   <a href={`tel:${room.ownerPhone}`} className="w-full">
-                    <Button fullWidth size="lg">
+                    <Button fullWidth size="lg" className="bg-sky-600 text-white font-bold shadow-lg shadow-sky-500/25">
                       <Icon icon="mdi:phone" />
                       {room.ownerPhone || "Gọi điện"}
-                    </Button>
-                  </a>
-                  <a href={`https://zalo.me/${room.ownerPhone}`} target="_blank" className="w-full">
-                    <Button fullWidth variant="secondary" size="lg">
-                      <Icon icon="simple-icons:zalo" />
-                      Nhắn Zalo
                     </Button>
                   </a>
                 </div>
