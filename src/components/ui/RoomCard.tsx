@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Card, Chip } from "@heroui/react";
+import { Card, Chip, CardContent } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import { formatPrice, formatArea, timeAgo } from "@/lib/utils";
 import { ROOM_TYPE_LABELS, type Room } from "@/types/room";
@@ -55,7 +55,7 @@ export default function RoomCard({ room }: RoomCardProps) {
           )}
         </div>
 
-        <Card.Content className="px-4 pt-3 pb-2 gap-1.5">
+        <CardContent className="px-4 pt-3 pb-2 gap-1.5">
           {/* Price */}
           <p className="price-tag text-lg">
             {formatPrice(room.price)}

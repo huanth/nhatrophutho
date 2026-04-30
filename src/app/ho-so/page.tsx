@@ -4,8 +4,8 @@ import { useState, useEffect } from "react";
 import { useAuth } from "@/lib/hooks/useAuth";
 import { 
   Card, Avatar, Button, Chip, Modal, 
-  ModalContent, ModalHeader, ModalBody, ModalFooter,
-  useDisclosure, Input
+  ModalHeader, ModalBody, ModalFooter,
+  useDisclosure, Input, CardContent, ModalContainer
 } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import { formatDate } from "@/lib/utils";
@@ -47,13 +47,13 @@ export default function ProfilePage() {
     }
   }, [profile]);
 
-  const handleSave = async (onClose: () => void) => {
+  const handleSave = async () => {
     if (!user) return;
     setIsSaving(true);
     try {
       await updateUserProfile(user.uid, editForm);
       await refreshProfile();
-      onClose();
+      onOpenChange(); // Close modal
     } catch (error) {
       console.error("Error updating profile:", error);
     } finally {
@@ -144,7 +144,7 @@ export default function ProfilePage() {
             {/* Main Info */}
             <div className="md:col-span-2 space-y-6">
               <Card className="border border-slate-200 dark:border-slate-700">
-                <Card.Body className="p-6 space-y-6">
+                <CardContent className="p-6 space-y-6">
                   <div className="flex items-center justify-between">
                     <h3 className="text-lg font-bold flex items-center gap-2">
                       <Icon icon="mdi:account-details" className="text-sky-500" />
@@ -174,7 +174,7 @@ export default function ProfilePage() {
                       <p className="text-sm font-medium">{roleInfo.label}</p>
                     </div>
                   </div>
-                </Card.Body>
+                </CardContent>
               </Card>
 
               {isLandlord && (
@@ -223,37 +223,33 @@ export default function ProfilePage() {
 
       {/* Edit Profile Modal */}
       <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="center">
-        <ModalContent>
-          {(onClose) => (
-            <>
-              <ModalHeader className="flex flex-col gap-1">Chỉnh sửa hồ sơ</ModalHeader>
-              <ModalBody>
-                <div className="space-y-4">
-                  <Input
-                    label="Họ và tên"
-                    variant="bordered"
-                    value={editForm.displayName}
-                    onChange={(e) => setEditForm(prev => ({ ...prev, displayName: e.target.value }))}
-                  />
-                  <Input
-                    label="Số điện thoại"
-                    variant="bordered"
-                    value={editForm.phone}
-                    onChange={(e) => setEditForm(prev => ({ ...prev, phone: e.target.value }))}
-                  />
-                </div>
-              </ModalBody>
-              <ModalFooter>
-                <Button variant="flat" onPress={onClose}>
-                  Hủy
-                </Button>
-                <Button color="primary" onPress={() => handleSave(onClose)} isPending={isSaving}>
-                  Lưu thay đổi
-                </Button>
-              </ModalFooter>
-            </>
-          )}
-        </ModalContent>
+        <ModalContainer className="bg-white dark:bg-slate-900 p-6 rounded-2xl max-w-md w-full mx-auto shadow-2xl">
+          <ModalHeader className="flex flex-col gap-1 p-0 mb-4 font-bold text-xl">Chỉnh sửa hồ sơ</ModalHeader>
+          <ModalBody className="p-0 mb-6">
+            <div className="space-y-4">
+              <Input
+                label="Họ và tên"
+                variant="bordered"
+                value={editForm.displayName}
+                onChange={(e) => setEditForm(prev => ({ ...prev, displayName: e.target.value }))}
+              />
+              <Input
+                label="Số điện thoại"
+                variant="bordered"
+                value={editForm.phone}
+                onChange={(e) => setEditForm(prev => ({ ...prev, phone: e.target.value }))}
+              />
+            </div>
+          </ModalBody>
+          <ModalFooter className="p-0 flex justify-end gap-2">
+            <Button variant="flat" onPress={() => onOpenChange()}>
+              Hủy
+            </Button>
+            <Button color="primary" onPress={() => handleSave()} isPending={isSaving}>
+              Lưu thay đổi
+            </Button>
+          </ModalFooter>
+        </ModalContainer>
       </Modal>
     </div>
   );
