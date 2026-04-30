@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { Button, Card, Chip } from "@heroui/react";
+import { Button, Card, Chip, Skeleton } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import { getPendingRooms, setRoomStatus } from "@/lib/firebase/firestore";
 import { ROOM_TYPE_LABELS, type Room } from "@/types/room";
@@ -41,7 +41,11 @@ export default function ReviewPage() {
       </div>
 
       {loading ? (
-        <div className="space-y-4">{Array.from({ length: 3 }).map((_, i) => <div key={i} className="h-32 skeleton rounded-2xl" />)}</div>
+        <div className="space-y-4">
+          {Array.from({ length: 3 }).map((_, i) => (
+            <Skeleton key={i} className="h-40 w-full rounded-2xl" />
+          ))}
+        </div>
       ) : rooms.length === 0 ? (
         <div className="text-center py-16 bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700">
           <Icon icon="mdi:check-all" className="text-5xl text-emerald-400 mx-auto mb-3" />

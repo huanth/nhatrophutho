@@ -5,7 +5,7 @@ import { useAuth } from "@/lib/hooks/useAuth";
 import { 
   Card, Avatar, Button, Chip, Modal, 
   ModalHeader, ModalBody, ModalFooter,
-  Input, CardContent, ModalContainer, RadioGroup, Radio
+  Input, CardContent, ModalContainer, RadioGroup, Radio, Skeleton
 } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import { formatDate } from "@/lib/utils";
@@ -73,7 +73,7 @@ export default function ProfilePage() {
       <div className="min-h-screen flex flex-col">
         <Navbar />
         <main className="flex-1 flex justify-center py-20">
-          <div className="h-20 w-20 rounded-full skeleton" />
+          <Skeleton className="h-24 w-24 rounded-full" />
         </main>
         <Footer />
       </div>

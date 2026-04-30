@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Avatar, Chip } from "@heroui/react";
+import { Card, Button, Chip, Avatar, Skeleton } from "@heroui/react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "@/lib/firebase/config";
 import { USER_ROLE_LABELS, type UserProfile, type UserRole } from "@/types/user";
@@ -32,7 +32,11 @@ export default function ManageUsersPage() {
       <h1 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">Quản lý người dùng</h1>
       <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden">
         {loading ? (
-          <div className="p-6 space-y-3">{Array.from({ length: 5 }).map((_, i) => <div key={i} className="h-12 skeleton rounded-xl" />)}</div>
+        <div className="p-6 space-y-3">
+          {Array.from({ length: 5 }).map((_, i) => (
+            <Skeleton key={i} className="h-14 w-full rounded-xl" />
+          ))}
+        </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left">

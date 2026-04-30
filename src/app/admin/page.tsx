@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Card } from "@heroui/react";
+import { Card, Button, Skeleton } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "@/lib/firebase/config";
@@ -55,7 +55,7 @@ export default function AdminDashboard() {
                 <Icon icon={c.icon} className="text-white text-2xl" />
               </div>
               <div>
-                {loading ? <div className="h-7 w-12 skeleton rounded" /> : <p className="text-2xl font-bold text-slate-900 dark:text-white">{c.value}</p>}
+                {loading ? <Skeleton className="h-8 w-16 rounded-lg" /> : <p className="text-2xl font-bold text-slate-900 dark:text-white">{c.value}</p>}
                 <p className="text-xs text-slate-500">{c.label}</p>
               </div>
             </Card.Content>

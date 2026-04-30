@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Card, Chip, CardContent, CardFooter } from "@heroui/react";
+import { Card, Chip, CardContent, CardFooter, Skeleton } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import { formatPrice, formatArea, timeAgo } from "@/lib/utils";
 import { ROOM_TYPE_LABELS, type Room } from "@/types/room";
@@ -109,18 +109,19 @@ export default function RoomCard({ room }: RoomCardProps) {
 // Skeleton loading card
 export function RoomCardSkeleton() {
   return (
-    <Card className="overflow-hidden border border-slate-200 dark:border-slate-700">
-      <div className="aspect-[4/3] skeleton" />
-      <Card.Content className="px-4 pt-3 pb-2 gap-2">
-        <div className="h-5 w-24 skeleton rounded" />
-        <div className="h-4 w-full skeleton rounded" />
-        <div className="h-4 w-3/4 skeleton rounded" />
-        <div className="h-3 w-1/2 skeleton rounded" />
-      </Card.Content>
-      <Card.Footer className="px-4 py-2.5 border-t border-slate-100 dark:border-slate-700/50">
-        <div className="h-3 w-20 skeleton rounded" />
-      </Card.Footer>
+    <Card className="rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800">
+      <Skeleton className="aspect-[4/3] w-full" />
+      <CardContent className="p-4 space-y-3">
+        <Skeleton className="h-4 w-1/2 rounded" />
+        <Skeleton className="h-6 w-3/4 rounded" />
+        <div className="flex justify-between">
+          <Skeleton className="h-5 w-1/3 rounded" />
+          <Skeleton className="h-5 w-1/4 rounded" />
+        </div>
+      </CardContent>
+      <CardFooter className="px-4 py-2.5 border-t border-slate-100 dark:border-slate-700/50">
+        <Skeleton className="h-3 w-20 rounded" />
+      </CardFooter>
     </Card>
   );
 }
-

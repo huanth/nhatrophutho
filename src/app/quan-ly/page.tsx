@@ -3,7 +3,9 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Button, Chip } from "@heroui/react";
+import { 
+  Button, Card, Chip, Table, Skeleton
+} from "@heroui/react";
 import { Icon } from "@iconify/react";
 import { useAuth } from "@/lib/hooks/useAuth";
 import { getRoomsByOwner, deleteRoom } from "@/lib/firebase/firestore";
@@ -57,8 +59,15 @@ export default function MyRoomsPage() {
       </div>
 
       {loading ? (
-        <div className="space-y-3">{Array.from({ length: 3 }).map((_, i) => <div key={i} className="h-16 skeleton rounded-xl" />)}</div>
-      ) : rooms.length === 0 ? (
+        <div className="space-y-4">
+          <Skeleton className="h-10 w-48 rounded-xl" />
+          <div className="space-y-3">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <Skeleton key={i} className="h-16 w-full rounded-xl" />
+            ))}
+          </div>
+        </div>
+      ) : (rooms.length === 0 ? (
         <div className="text-center py-16 bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700">
           <Icon icon="mdi:file-document-outline" className="text-5xl text-slate-300 mx-auto mb-3" />
           <h3 className="font-semibold text-lg mb-1">Chưa có bài đăng</h3>

@@ -40,10 +40,15 @@ export default function RoomDetailPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen"><Navbar />
+      <div className="min-h-screen">
+        <Navbar />
         <div className="max-w-7xl mx-auto px-4 py-8 space-y-6">
-          <div className="h-8 w-64 skeleton rounded" />
-          <div className="aspect-[2/1] skeleton rounded-2xl" />
+          <Skeleton className="h-10 w-64 rounded-xl" />
+          <Skeleton className="aspect-[2/1] w-full rounded-2xl" />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <Skeleton className="h-32 rounded-2xl" />
+            <Skeleton className="h-32 rounded-2xl" />
+          </div>
         </div>
       </div>
     );

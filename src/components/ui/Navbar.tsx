@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Switch } from "@heroui/react";
+import { Switch, Skeleton } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import { useTheme } from "next-themes";
 import { signOut } from "@/lib/firebase/auth";
@@ -150,7 +150,7 @@ export default function Navbar() {
             </div>
 
             {loading ? (
-              <div className="h-8 w-8 rounded-full skeleton" />
+              <Skeleton className="h-9 w-9 rounded-full" />
             ) : user ? (
               <>
                 {isLandlord && (
