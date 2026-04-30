@@ -58,9 +58,8 @@ export async function signInWithGoogle() {
   if (!profileSnap.exists()) {
     await createUserProfile(result.user, result.user.displayName || "User", "user");
   } else {
-    // If profile exists but avatarUrl is missing, update it from Google
-    const existingData = profileSnap.data();
-    if (!existingData.avatarUrl && result.user.photoURL) {
+    // Always sync avatarUrl from Google if available
+    if (result.user.photoURL) {
       await updateDoc(profileRef, {
         avatarUrl: result.user.photoURL,
         updatedAt: serverTimestamp(),
