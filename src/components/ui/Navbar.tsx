@@ -291,6 +291,7 @@ export default function Navbar() {
                       <div className="p-1">
                         <Link
                           href="/ho-so"
+                          onClick={closeMenus}
                           className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"
                         >
                           <Icon icon="mdi:account-circle" />
@@ -299,6 +300,7 @@ export default function Navbar() {
                         {isLandlord && (
                           <Link
                             href="/quan-ly"
+                            onClick={closeMenus}
                             className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"
                           >
                             <Icon icon="mdi:view-dashboard" />
@@ -308,6 +310,7 @@ export default function Navbar() {
                         {isAdmin && (
                           <Link
                             href="/admin"
+                            onClick={closeMenus}
                             className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"
                           >
                             <Icon icon="mdi:shield-crown" />

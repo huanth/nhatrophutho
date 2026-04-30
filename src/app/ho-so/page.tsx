@@ -5,7 +5,7 @@ import { useAuth } from "@/lib/hooks/useAuth";
 import { 
   Card, Avatar, Button, Chip, Modal, 
   ModalHeader, ModalBody, ModalFooter,
-  Input, CardContent, ModalContainer
+  useDisclosure, Input, CardContent, ModalContainer, Select, SelectItem
 } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import { formatDate } from "@/lib/utils";
@@ -25,7 +25,6 @@ export default function ProfilePage() {
   const { user, profile, loading, isLandlord, isAdmin, refreshProfile } = useAuth();
   const [actualRoomCount, setActualRoomCount] = useState<number | null>(null);
   
-  // Use useState instead of useDisclosure to avoid HeroUI version issues
   const [isOpen, setIsOpen] = useState(false);
   const onOpen = () => setIsOpen(true);
   const onClose = () => setIsOpen(false);
@@ -34,6 +33,8 @@ export default function ProfilePage() {
   const [editForm, setEditForm] = useState({
     displayName: "",
     phone: "",
+    avatarUrl: "",
+    role: "" as any,
   });
 
   useEffect(() => {
@@ -47,6 +48,8 @@ export default function ProfilePage() {
       setEditForm({
         displayName: profile.displayName || "",
         phone: profile.phone || "",
+        avatarUrl: profile.avatarUrl || "",
+        role: profile.role,
       });
     }
   }, [profile]);
@@ -200,6 +203,25 @@ export default function ProfilePage() {
                 </Card>
               )}
 
+              {!isLandlord && (
+                <Card className="bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-100 dark:border-emerald-900/50 p-6">
+                  <div className="flex items-start gap-4">
+                    <div className="bg-emerald-500 text-white p-3 rounded-2xl shadow-lg shadow-emerald-500/20">
+                      <Icon icon="mdi:home-plus" className="text-2xl" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-lg font-bold text-emerald-900 dark:text-emerald-100 mb-1">Trở thành chủ nhà trọ</h3>
+                      <p className="text-sm text-emerald-700/70 dark:text-emerald-300/70 mb-4">
+                        Bạn muốn đăng tin cho thuê phòng trọ? Hãy cập nhật vai trò của mình để bắt đầu đăng tin ngay nhé!
+                      </p>
+                      <Button color="success" onPress={onOpen} className="font-semibold shadow-md text-white">
+                        Nâng cấp ngay
+                      </Button>
+                    </div>
+                  </div>
+                </Card>
+              )}
+
               {isAdmin && (
                 <Card className="bg-amber-50 dark:bg-amber-950/20 border border-amber-100 dark:border-amber-900/50 p-6">
                   <div className="flex items-start gap-4">
@@ -243,6 +265,28 @@ export default function ProfilePage() {
                 value={editForm.phone}
                 onChange={(e) => setEditForm(prev => ({ ...prev, phone: e.target.value }))}
               />
+              <Input
+                label="Link ảnh đại diện (URL)"
+                variant="bordered"
+                value={editForm.avatarUrl}
+                placeholder="https://example.com/avatar.jpg"
+                onChange={(e) => setEditForm(prev => ({ ...prev, avatarUrl: e.target.value }))}
+              />
+              
+              {!isAdmin && (
+                <Select
+                  label="Vai trò"
+                  variant="bordered"
+                  selectedKeys={[editForm.role]}
+                  onSelectionChange={(keys) => {
+                    const selected = Array.from(keys)[0];
+                    if (selected) setEditForm(prev => ({ ...prev, role: selected as any }));
+                  }}
+                >
+                  <SelectItem key="user" value="user">Người tìm trọ</SelectItem>
+                  <SelectItem key="landlord" value="landlord">Chủ nhà trọ</SelectItem>
+                </Select>
+              )}
             </div>
           </ModalBody>
           <ModalFooter className="p-0 flex justify-end gap-2">
