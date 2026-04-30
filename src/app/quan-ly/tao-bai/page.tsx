@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
-import { Button, Card } from "@heroui/react";
+import { Button, Card, CardContent } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import { useAuth } from "@/lib/hooks/useAuth";
 import { createRoom } from "@/lib/firebase/firestore";
@@ -81,7 +81,7 @@ export default function CreateRoomPage() {
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Basic info */}
         <Card className="border border-slate-200 dark:border-slate-700">
-          <Card.Content className="p-5 space-y-4">
+          <CardContent className="p-5 space-y-4">
             <h2 className="font-semibold flex items-center gap-2"><Icon icon="mdi:information" className="text-sky-500" />Thông tin cơ bản</h2>
             <div>
               <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
@@ -143,12 +143,12 @@ export default function CreateRoomPage() {
                 onChange={(event) => updateForm("description", event.target.value)}
               />
             </div>
-          </Card.Content>
+          </CardContent>
         </Card>
 
         {/* Location */}
         <Card className="border border-slate-200 dark:border-slate-700">
-          <Card.Content className="p-5 space-y-4">
+          <CardContent className="p-5 space-y-4">
             <h2 className="font-semibold flex items-center gap-2"><Icon icon="mdi:map-marker" className="text-sky-500" />Vị trí</h2>
             <div className="grid grid-cols-1 gap-4">
               <div>
@@ -179,12 +179,12 @@ export default function CreateRoomPage() {
                 onChange={(event) => updateForm("address", event.target.value)}
               />
             </div>
-          </Card.Content>
+          </CardContent>
         </Card>
 
         {/* Amenities */}
         <Card className="border border-slate-200 dark:border-slate-700">
-          <Card.Content className="p-5 space-y-4">
+          <CardContent className="p-5 space-y-4">
             <h2 className="font-semibold flex items-center gap-2"><Icon icon="mdi:star" className="text-sky-500" />Tiện ích</h2>
             <div className="flex flex-wrap gap-2 pt-2">
               {AMENITIES.map((a) => {
@@ -211,12 +211,12 @@ export default function CreateRoomPage() {
                 );
               })}
             </div>
-          </Card.Content>
+          </CardContent>
         </Card>
 
         {/* Images */}
         <Card className="border border-slate-200 dark:border-slate-700">
-          <Card.Content className="p-5 space-y-4">
+          <CardContent className="p-5 space-y-4">
             <h2 className="font-semibold flex items-center gap-2"><Icon icon="mdi:image-multiple" className="text-sky-500" />Hình ảnh (tối đa 10)</h2>
             <div className="grid grid-cols-3 sm:grid-cols-5 gap-3">
               {imagePreviews.map((src, idx) => (
@@ -236,12 +236,12 @@ export default function CreateRoomPage() {
                 </label>
               )}
             </div>
-          </Card.Content>
+          </CardContent>
         </Card>
 
         {/* Contact */}
         <Card className="border border-slate-200 dark:border-slate-700">
-          <Card.Content className="p-5 space-y-4">
+          <CardContent className="p-5 space-y-4">
             <h2 className="font-semibold flex items-center gap-2"><Icon icon="mdi:phone" className="text-sky-500" />Liên hệ</h2>
             <div>
               <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
@@ -254,7 +254,7 @@ export default function CreateRoomPage() {
                 required
               />
             </div>
-          </Card.Content>
+          </CardContent>
         </Card>
 
         <div className="flex gap-3 justify-end">
