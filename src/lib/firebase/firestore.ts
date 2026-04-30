@@ -138,7 +138,6 @@ export async function getRoomBySlug(slug: string): Promise<Room | null> {
   const q = query(
     roomsRef,
     where("slug", "==", slug),
-    where("status", "==", "approved"),
     limit(1)
   );
   const snapshot = await getDocs(q);
@@ -152,6 +151,15 @@ export async function getRoomBySlug(slug: string): Promise<Room | null> {
     createdAt: doc.data().createdAt?.toDate?.()?.toISOString() || new Date().toISOString(),
     updatedAt: doc.data().updatedAt?.toDate?.()?.toISOString() || new Date().toISOString(),
   } as Room;
+}
+
+// Get single room by ID
+export async function getRoomById(id: string): Promise<Room | null> {
+  const roomRef = doc(db, ROOMS_COLLECTION, id);
+  const snap = await getDoc(roomRef);
+
+  if (!snap.exists()) return null;
+  return mapRoom(snap);
 }
 
 // Get rooms by owner
