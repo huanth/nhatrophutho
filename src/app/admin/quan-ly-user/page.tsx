@@ -54,7 +54,7 @@ export default function ManageUsersPage() {
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-3">
                         <Avatar size="sm">
-                          <Avatar.Image src={u.avatarUrl || undefined} alt={u.displayName} />
+                          <Avatar.Image src={u.avatarUrl || undefined} alt={u.displayName} referrerPolicy="no-referrer" />
                           <Avatar.Fallback>{u.displayName?.charAt(0)}</Avatar.Fallback>
                         </Avatar>
                         <span className="font-medium text-sm">{u.displayName}</span>

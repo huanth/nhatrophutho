@@ -41,6 +41,7 @@ export default function ProfilePage() {
   useEffect(() => {
     async function syncAvatar() {
       if (user?.photoURL && profile && profile.avatarUrl !== user.photoURL) {
+        console.log("Syncing avatar from Google...", { google: user.photoURL, profile: profile.avatarUrl });
         await updateUserProfile(user.uid, { avatarUrl: user.photoURL });
         await refreshProfile();
       }
@@ -125,7 +126,7 @@ export default function ProfilePage() {
               <Card className="p-6 border border-slate-200 dark:border-slate-700 text-center">
                 <div className="relative mx-auto w-24 h-24 mb-4">
                   <Avatar className="w-24 h-24 text-2xl font-bold border-4 border-sky-100 dark:border-sky-900 shadow-xl">
-                    <Avatar.Image src={profile.avatarUrl || undefined} alt={profile.displayName} />
+                    <Avatar.Image src={profile.avatarUrl || undefined} alt={profile.displayName} referrerPolicy="no-referrer" />
                     <Avatar.Fallback>{profile.displayName?.charAt(0)}</Avatar.Fallback>
                   </Avatar>
                   {isAdmin && (

@@ -261,7 +261,7 @@ export default function Navbar() {
                     aria-expanded={isAccountMenuOpen}
                   >
                     <Avatar className="h-9 w-9 border-2 border-sky-200 dark:border-sky-900 bg-sky-50 text-sm font-bold text-sky-700 dark:bg-sky-950 dark:text-sky-200">
-                      <Avatar.Image src={avatarUrl} alt={displayName} />
+                      <Avatar.Image src={avatarUrl} alt={displayName} referrerPolicy="no-referrer" />
                       <Avatar.Fallback>{avatarLetter}</Avatar.Fallback>
                     </Avatar>
                     {isAdmin && (
